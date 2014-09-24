@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	
 	//private static final String DATABASE_PATH = "/data/data/com.example.databaseimage/databases/";
 	private static final String DATABASE_NAME="mh.db";
-	private static final int SCHEMA_VERSION=1;
+	private static final int SCHEMA_VERSION=3;
 	private String DB_PATH;
 	
 	public SQLiteDatabase dbSqlite;

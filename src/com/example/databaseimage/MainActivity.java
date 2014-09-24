@@ -1,16 +1,17 @@
 package com.example.databaseimage;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
 	private DBHelper dbHelper = null;
 	//private Cursor ourCursor = null;
-	//private DBAdapter adapter = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,20 @@ public class MainActivity extends ActionBarActivity {
         //they have never run the app before
         dbHelper.createDatabase();
     }
+    
+    private void displayText(String message) {
+    	TextView textView = (TextView) findViewById(R.id.editText1);
+    	textView.setText(message);
+    }
 
-
+    public void onClick_CLearAll(View v) {
+    	displayText("Clicked clear all");
+    }
+    
+    public void onClick_DisplayRecords(View v) {
+    	displayText("Clicked display record");
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
