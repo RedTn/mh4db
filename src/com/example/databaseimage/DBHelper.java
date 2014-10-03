@@ -61,10 +61,10 @@ public class DBHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = null;
 		
 		try {
-			String databasePath = getDB_PATH() + DATABASE_NAME;
+			String databasePath = getDB_PATH();
 			
-			//READ ONLY
-			db = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READONLY);
+			//READWRITE
+			db = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READWRITE);
 			
 			db.setLocale(Locale.getDefault());
 			//db.setLockingEnabled(true);
@@ -80,7 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return db != null ? true : false;
 		
 		/*
-		File databaseFile = new File(getDB_PATH() + DATABASE_NAME);
+		File databaseFile = new File(getDB_PATH());
 	    return databaseFile.exists(); 
 	    */
 	}
@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		
 		InputStream inputStream = null;
 		OutputStream outStream = null;
-		String dbFilePath = getDB_PATH() + DATABASE_NAME;
+		String dbFilePath = getDB_PATH();
 		
 		try {
 			inputStream = myContext.getAssets().open(DATABASE_NAME);
