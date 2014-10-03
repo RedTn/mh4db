@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         openDB();
         
      // Reading all contacts from database
-     		List<Imgset> imgsets = myDb.getAllContacts();
+     		List<Imgset> imgsets = myDb.getAllImgsets();
      		for (Imgset is : imgsets) {
      			String log = "ID:" + is.getID() + " Name: " + is.getName()
      					+ " ,Image: " + is.getImage();
@@ -83,9 +83,9 @@ public class MainActivity extends ActionBarActivity {
     }
     
     private void displayRecordSet(Cursor cursor) {
-		String message = "";
 		
 		/*
+	    String message = "";
 		//Reset cursor to start
 		if (cursor.moveToFirst()) {
 			do {

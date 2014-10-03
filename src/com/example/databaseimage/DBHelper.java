@@ -48,6 +48,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	private void createDB(){
 		boolean dbExist = DBExists();
 		
+		//TODO
+		//Suppress LogCat errors
+		//Reason: When DBEXISTS() returns false, throws many LogCat errors
 		if(!dbExist) {
 			
 			this.getReadableDatabase();

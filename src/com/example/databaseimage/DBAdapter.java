@@ -28,13 +28,12 @@ public class DBAdapter {
     private static final String DATABASE_TABLE = "image";
     private static final int DATABASE_VERSION = 3;
 
+    /*
     private static final String DATABASE_CREATE =
     		"create table " + DATABASE_TABLE 
 			+ " (" + KEY_ROWID + " integer primary key autoincrement, "
 			
-			/*
-			 * CHANGE 2:
-			 */
+			
 			// TODO: Place your fields here!
 			// + KEY_{...} + " {type} not null"
 			//	- Key is the column name you created above.
@@ -47,6 +46,7 @@ public class DBAdapter {
 			
 			// Rest  of creation:
 			+ ");";
+	*/
         
     private final Context context;    
 
@@ -69,11 +69,13 @@ public class DBAdapter {
         @Override
         public void onCreate(SQLiteDatabase db) 
         {
+        	/*
         	try {
         		db.execSQL(DATABASE_CREATE);	
         	} catch (SQLException e) {
         		e.printStackTrace();
         	}
+        	*/
         }
 
         @Override
@@ -126,36 +128,12 @@ public class DBAdapter {
         }
         return mCursor;
     }
- // Getting All Imgsets
- 	public List<Imgset> getAllImgsets() {
- 		List<Imgset> ImgsetList = new ArrayList<Imgset>();
- 		// Select All Query
- 		String selectQuery = "SELECT * FROM image ORDER BY name";
- 		
- 		Cursor cursor = db.rawQuery(selectQuery, null);
- 		// looping through all rows and adding to list
- 		if (cursor.moveToFirst()) {
- 			do {
- 				Imgset Imgset = new Imgset();
- 				Imgset.setID(Integer.parseInt(cursor.getString(0)));
- 				Imgset.setName(cursor.getString(1));
- 				Imgset.setImage(cursor.getBlob(2));
- 				// Adding Imgset to list
- 				ImgsetList.add(Imgset);
- 			} while (cursor.moveToNext());
- 		}
- 		// close inserting data from database
- 		db.close();
- 		// return Imgset list
- 		return ImgsetList;
-
- 	}
  	
  // Getting All Imgsets
- 	public List<Imgset> getAllContacts() {
+ 	public List<Imgset> getAllImgsets() {
  		List<Imgset> imgList = new ArrayList<Imgset>();
  		// Select All Query
- 		String selectQuery = "SELECT * FROM image ORDER BY name";
+ 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE  + " ORDER BY name";
 
  		Cursor cursor = db.rawQuery(selectQuery, null);
  		// looping through all rows and adding to list
