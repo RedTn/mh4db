@@ -1,19 +1,24 @@
 package com.example.databaseimage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-
+import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 
 	private DBHelper dbHelper = null;
 	//private Cursor ourCursor = null;
 	DBAdapter myDb;
+	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
+	ImgsetAdapter adapter;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,23 @@ public class MainActivity extends ActionBarActivity {
         dbHelper.createDatabase();
         
         openDB();
+        
+     // Reading all contacts from database
+     		List<Imgset> imgsets = myDb.getAllContacts();
+     		for (Imgset is : imgsets) {
+     			String log = "ID:" + is.getID() + " Name: " + is.getName()
+     					+ " ,Image: " + is.getImage();
+
+     			// Writing Contacts to log
+     			Log.d("Result: ", log);
+     			//add contacts data in arrayList
+     			imageArry.add(is);
+
+     		}
+     		adapter = new ImgsetAdapter(this, R.layout.item_layout,
+     				imageArry);
+     		ListView dataList = (ListView) findViewById(R.id.list);
+     		dataList.setAdapter(adapter);
     }
     
     @Override
@@ -63,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
     private void displayRecordSet(Cursor cursor) {
 		String message = "";
 		
-		
+		/*
 		//Reset cursor to start
 		if (cursor.moveToFirst()) {
 			do {
@@ -82,6 +104,7 @@ public class MainActivity extends ActionBarActivity {
 		cursor.close();
 		
 		displayText(message);
+		*/
 	}
 
 	@Override

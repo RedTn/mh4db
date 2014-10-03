@@ -1,5 +1,8 @@
 package com.example.databaseimage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -21,7 +24,7 @@ public class DBAdapter {
     
     public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_IMAGE};
 
-    private static final String DATABASE_NAME = "mh.dbmh.db";	//may be different
+    private static final String DATABASE_NAME = "mh.db";	//may be different
     private static final String DATABASE_TABLE = "image";
     private static final int DATABASE_VERSION = 3;
 
@@ -40,7 +43,7 @@ public class DBAdapter {
 			//  - "not null" means it is a required field (must be given a value).
 			// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 			+ KEY_NAME + " string not null, "
-			+ KEY_IMAGE + " text not null, "
+			+ KEY_IMAGE + " blob not null, "
 			
 			// Rest  of creation:
 			+ ");";
@@ -78,7 +81,7 @@ public class DBAdapter {
         {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS contacts");
+            db.execSQL("DROP TABLE IF EXISTS Imgsets");
             onCreate(db);
         }
     }    
@@ -99,7 +102,7 @@ public class DBAdapter {
     
 
     //---deletes a particular record---
-    public boolean deleteContact(long rowId) 
+    public boolean deleteImgset(long rowId) 
     {
         return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
@@ -123,5 +126,52 @@ public class DBAdapter {
         }
         return mCursor;
     }
+ // Getting All Imgsets
+ 	public List<Imgset> getAllImgsets() {
+ 		List<Imgset> ImgsetList = new ArrayList<Imgset>();
+ 		// Select All Query
+ 		String selectQuery = "SELECT * FROM image ORDER BY name";
+ 		
+ 		Cursor cursor = db.rawQuery(selectQuery, null);
+ 		// looping through all rows and adding to list
+ 		if (cursor.moveToFirst()) {
+ 			do {
+ 				Imgset Imgset = new Imgset();
+ 				Imgset.setID(Integer.parseInt(cursor.getString(0)));
+ 				Imgset.setName(cursor.getString(1));
+ 				Imgset.setImage(cursor.getBlob(2));
+ 				// Adding Imgset to list
+ 				ImgsetList.add(Imgset);
+ 			} while (cursor.moveToNext());
+ 		}
+ 		// close inserting data from database
+ 		db.close();
+ 		// return Imgset list
+ 		return ImgsetList;
+
+ 	}
+ 	
+ // Getting All Imgsets
+ 	public List<Imgset> getAllContacts() {
+ 		List<Imgset> imgList = new ArrayList<Imgset>();
+ 		// Select All Query
+ 		String selectQuery = "SELECT * FROM image ORDER BY name";
+
+ 		Cursor cursor = db.rawQuery(selectQuery, null);
+ 		// looping through all rows and adding to list
+ 		if (cursor.moveToFirst()) {
+ 			do {
+ 				Imgset imgset = new Imgset();
+ 				imgset.setID(Integer.parseInt(cursor.getString(0)));
+ 				imgset.setName(cursor.getString(1));
+ 				imgset.setImage(cursor.getBlob(2));
+ 				// Adding contact to list
+ 				imgList.add(imgset);
+ 			} while (cursor.moveToNext());
+ 		}
+ 		// return contact list
+ 		return imgList;
+
+ 	}
 
 }
