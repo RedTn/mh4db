@@ -8,19 +8,42 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapter {
-    public static final String KEY_ROWID = "empid";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_TITLE = "title";
-
     private static final String TAG = "DBAdapter";
     
-    private static final String DATABASE_NAME = "mh.dbmh.db";
-    private static final String DATABASE_TABLE = "employee";
+    public static final String KEY_ROWID = "id";
+    public static final int COL_ROWID = 0;
+    
+    public static final String KEY_NAME = "name";
+    public static final String KEY_IMAGE = "image";
+    
+    public static final int COL_NAME = 1;
+    public static final int COL_IMAGE = 2;
+    
+    public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_IMAGE};
+
+    private static final String DATABASE_NAME = "mh.dbmh.db";	//may be different
+    private static final String DATABASE_TABLE = "image";
     private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE =
-        "create table if not exists assignments (id integer primary key autoincrement, "
-        + "title VARCHAR not null, duedate date, course VARCHAR, notes VARCHAR );";
+    		"create table " + DATABASE_TABLE 
+			+ " (" + KEY_ROWID + " integer primary key autoincrement, "
+			
+			/*
+			 * CHANGE 2:
+			 */
+			// TODO: Place your fields here!
+			// + KEY_{...} + " {type} not null"
+			//	- Key is the column name you created above.
+			//	- {type} is one of: text, integer, real, blob
+			//		(http://www.sqlite.org/datatype3.html)
+			//  - "not null" means it is a required field (must be given a value).
+			// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+			+ KEY_NAME + " string not null, "
+			+ KEY_IMAGE + " text not null, "
+			
+			// Rest  of creation:
+			+ ");";
         
     private final Context context;    
 
@@ -85,7 +108,7 @@ public class DBAdapter {
     public Cursor getAllRecords() 
     {
         return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
-                KEY_TITLE}, null, null, null, null, null);
+                KEY_IMAGE}, null, null, null, null, null);
     }
 
     //---retrieves a particular record---
@@ -93,7 +116,7 @@ public class DBAdapter {
     {
         Cursor mCursor =
                 db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                KEY_NAME, KEY_TITLE}, 
+                KEY_NAME, KEY_IMAGE}, 
                 KEY_ROWID + "=" + rowId, null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
