@@ -3,6 +3,7 @@ package com.example.databaseimage;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -19,9 +21,11 @@ public class MainActivity extends ActionBarActivity {
 	DBAdapter myDb;
 	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
 	ImgsetAdapter adapter;
+	public final static String ID_EXTRA="com.example.databaseimage._ID";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	try {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
@@ -47,9 +51,33 @@ public class MainActivity extends ActionBarActivity {
      		}
      		adapter = new ImgsetAdapter(this, R.layout.item_layout,
      				imageArry);
-     		ListView dataList = (ListView) findViewById(R.id.list);
+     		//ListView dataList = (ListView) findViewById(R.id.list);
+     		GridView dataList = (GridView) findViewById(R.id.gridView1);
      		dataList.setAdapter(adapter);
+     		
+     		dataList.setOnItemClickListener(onGridClick);
+    	}
+    	catch (Exception e)
+    	{
+    		
+    		Log.e("ERROR", "ERROR IN CODE: " + e.toString());
+    		
+    		e.printStackTrace();
+    	}
     }
+    
+    private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickListener() {
+    	public void onItemClick(AdapterView<?> parent, 
+    							View view, int position,
+    							long id)
+    	{
+    		Intent i = new Intent(MainActivity.this, DescriptActivity.class);
+    		
+    		i.putExtra(ID_EXTRA, String.valueOf(id));
+    		startActivity(i);
+    		
+    	}
+	};
     
     @Override
     protected void onDestroy() {

@@ -133,7 +133,7 @@ public class DBAdapter {
  	public List<Imgset> getAllImgsets() {
  		List<Imgset> imgList = new ArrayList<Imgset>();
  		// Select All Query
- 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE  + " ORDER BY name";
+ 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE  + " ORDER BY id";
 
  		Cursor cursor = db.rawQuery(selectQuery, null);
  		// looping through all rows and adding to list
