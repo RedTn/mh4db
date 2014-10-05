@@ -26,7 +26,11 @@ public class DBAdapter {
 
     private static final String DATABASE_NAME = "mh.db";	//may be different
     private static final String DATABASE_TABLE = "image";
+    private static final String DATABASE_TABLE_WEAK = "weakness";
+    private static final String DATABASE_TABLE_LOW = "lowrank";
+    private static final String DATABASE_TABLE_ITEM = "item";
     private static final int DATABASE_VERSION = 3;
+    
 
     /*
     private static final String DATABASE_CREATE =
@@ -150,6 +154,101 @@ public class DBAdapter {
  		// return contact list
  		return imgList;
 
+ 	}
+ // Getting All Weaksets
+  	public List<Weakset> getAllWeaksets() {
+  		List<Weakset> weakList = new ArrayList<Weakset>();
+  		// Select All Query
+  		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_WEAK  + " ORDER BY id";
+
+  		Cursor cursor = db.rawQuery(selectQuery, null);
+  		// looping through all rows and adding to list
+  		if (cursor.moveToFirst()) {
+  			do {
+  				Weakset weakset = new Weakset();
+  				weakset.set_id(cursor.getString(0));
+  				weakset.set_bid(cursor.getString(1));
+  				weakset.set_location(cursor.getString(2));
+  				weakset.set_cut(cursor.getString(3));
+  				weakset.set_impact(cursor.getString(4));
+  				weakset.set_bullet(cursor.getString(5));
+  				weakset.set_fire(cursor.getString(6));
+  				weakset.set_water(cursor.getString(7));
+  				weakset.set_thunder(cursor.getString(8));
+  				weakset.set_ice(cursor.getString(9));
+  				weakset.set_dragon(cursor.getString(10));
+  				weakset.set_stun(cursor.getString(11));
+  				// Adding contact to list
+  				weakList.add(weakset);
+  			} while (cursor.moveToNext());
+  		}
+  		// return contact list
+  		return weakList;
+
+  	}
+ // Getting All Rankset
+   	public List<Rankset> getAllRanksets(int mid) {
+   		List<Rankset> rankList = new ArrayList<Rankset>();
+   		// Select All Query
+   		Cursor cursor = db.query(DATABASE_TABLE_LOW, new String[] { "mid",
+				"iid", "qty", "prob", "obtain" }, "mid" + "=?",
+				new String[] { String.valueOf(mid) }, null, null, "iid", null);
+   		// looping through all rows and adding to list
+   		if (cursor.moveToFirst()) {
+   			do {
+   				Rankset rankset = new Rankset();
+   				rankset.set_mid(cursor.getInt(0));
+   				rankset.set_iid(cursor.getInt(1));
+   				rankset.set_qty(cursor.getString(2));
+   				rankset.set_prob(cursor.getString(3));
+   				rankset.set_obtain(cursor.getString(4));
+   				
+   				// Adding contact to list
+   				rankList.add(rankset);
+   			} while (cursor.moveToNext());
+   		}
+   		// return contact list
+   		return rankList;
+
+   	}
+ 	
+ 	Imgset getImgset(int id) {
+
+		Cursor cursor = db.query(DATABASE_TABLE, new String[] { KEY_ROWID,
+				KEY_NAME, KEY_IMAGE }, KEY_ROWID + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
+
+		Imgset imgset = new Imgset(cursor.getInt(0),
+				cursor.getString(1), cursor.getBlob(2));
+
+		return imgset;
+
+	}
+ 	
+ 	Itemset getItemset(int id) {
+ 		Cursor cursor = db.query(DATABASE_TABLE_ITEM, new String[] { "id",
+				"image", "name", "rare", "qty", "sell", "buy" }, "id" + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
+
+		Itemset itemset = new Itemset(cursor.getInt(0),
+				cursor.getBlob(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+
+		return itemset;
+ 	}
+ 	
+ 	
+ // Getting contacts Count
+ 	public int getImgsetCount() {
+ 		String countQuery = "SELECT * FROM " + DATABASE_TABLE;
+
+ 		Cursor cursor = db.rawQuery(countQuery, null);
+ 		cursor.close();
+
+ 		return cursor.getCount();
  	}
 
 }

@@ -10,10 +10,67 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.databaseimage.DescriptActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/mainicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_launcher"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/titletxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/RadioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioweak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/weakradio" />
+
+        <RadioButton
+            android:id="@+id/radiolow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/lowradio" />
+
+        <RadioButton
+            android:id="@+id/radiohigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/highradio" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/weaklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp" >
+    </ListView>
 
 </LinearLayout>
