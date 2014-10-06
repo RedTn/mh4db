@@ -1,4 +1,4 @@
-package com.example.databaseimage;
+package com.example.mh4db;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

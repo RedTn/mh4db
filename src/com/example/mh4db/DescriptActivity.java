@@ -1,7 +1,9 @@
-package com.example.databaseimage;
+package com.example.mh4db;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.databaseimage.R;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,7 +54,7 @@ public class DescriptActivity extends ActionBarActivity {
 		myDb = new DBAdapter(this);
 		myDb.open();
 
-		passedVal = getIntent().getLongExtra(MainActivity.ID_EXTRA, -1);
+		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
 		passedVal++;
 
 		Imgset imgset = myDb.getImgset((int) passedVal);

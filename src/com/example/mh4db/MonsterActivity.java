@@ -1,7 +1,9 @@
-package com.example.databaseimage;
+package com.example.mh4db;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.databaseimage.R;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,9 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-public class MainActivity extends ActionBarActivity {
+public class MonsterActivity extends ActionBarActivity {
 
-	private DBHelper dbHelper = null;
 	//private Cursor ourCursor = null;
 	DBAdapter myDb;
 	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
@@ -27,14 +28,8 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		try {
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_main);
-			Log.i("ActivityCheck", "in onCreate (MainActivity)");
-
-			//create our database Helper
-			dbHelper = new DBHelper(this);
-			//we call the create right after initializing the helper, just in case
-			//they have never run the app before
-			dbHelper.createDatabase();
+			setContentView(R.layout.activity_monster);
+			Log.i("ActivityCheck", "in onCreate (MonsterActivity)");
 
 			openDB();
 
@@ -72,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
 				View view, int position,
 				long id)
 		{	
-			Intent i = new Intent(MainActivity.this, DescriptActivity.class);
+			Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
 
 			i.putExtra(ID_EXTRA, id);
 			startActivity(i);
@@ -158,16 +153,16 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.i("ActivityCheck", "in onResume (MainActivity)");
+		Log.i("ActivityCheck", "in onResume (MonsterActivity)");
 	}
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.i("ActivityCheck", "in onPause (MainActivity)");
+		Log.i("ActivityCheck", "in onPause (MonsterActivity)");
 	}
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Log.i("ActivityCheck", "in onStop (MainActivity)");
+		Log.i("ActivityCheck", "in onStop (MonsterActivity)");
 	}
 }

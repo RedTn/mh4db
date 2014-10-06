@@ -11,5 +11,8 @@
     <string name="weakradio">Weak</string>
     <string name="lowradio">Low</string>
     <string name="highradio">High</string>
+    <string name="title_activity_monster">MonsterActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="monster_menu">Monster</string>
 
 </resources>
