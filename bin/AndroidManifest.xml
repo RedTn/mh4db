@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.databaseimage"
+    package="com.example.mh4db"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
 
     <application
@@ -24,7 +24,11 @@
         </activity>
         <activity
             android:name="com.example.mh4db.DescriptActivity"
-            android:label="@string/title_activity_descript" >
+            android:label="@string/title_activity_descript"
+            android:parentActivityName="com.example.mh4db.MonsterActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mh4db.MonsterActivity" />
         </activity>
         <activity
             android:name="com.example.mh4db.MonsterActivity"
@@ -32,7 +36,7 @@
             android:parentActivityName="com.example.mh4db.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.databaseimage.MainActivity" />
+                android:value="com.example.mh4db.MainActivity" />
         </activity>
     </application>
 

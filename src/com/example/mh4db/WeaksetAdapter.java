@@ -2,8 +2,6 @@ package com.example.mh4db;
 
 import java.util.ArrayList;
 
-import com.example.databaseimage.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;

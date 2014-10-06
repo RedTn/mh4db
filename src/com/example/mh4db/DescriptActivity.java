@@ -3,8 +3,6 @@ package com.example.mh4db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.databaseimage.R;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;

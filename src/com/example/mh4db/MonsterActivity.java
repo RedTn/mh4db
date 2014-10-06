@@ -3,8 +3,6 @@ package com.example.mh4db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.databaseimage.R;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,7 +20,7 @@ public class MonsterActivity extends ActionBarActivity {
 	DBAdapter myDb;
 	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
 	ImgsetAdapter adapter;
-	public final static String ID_EXTRA="com.example.databaseimage._ID";
+	public final static String ID_EXTRA="com.example.mh4db._ID";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +28,8 @@ public class MonsterActivity extends ActionBarActivity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_monster);
 			Log.i("ActivityCheck", "in onCreate (MonsterActivity)");
+			
+			setTitle("Monsters");
 
 			openDB();
 

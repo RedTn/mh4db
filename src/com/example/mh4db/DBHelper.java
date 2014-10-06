@@ -16,7 +16,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	
 	//we declare a bunch of useful constants
 	
-	//private static final String DATABASE_PATH = "/data/data/com.example.databaseimage/databases/";
 	private static final String DATABASE_NAME="mh.db";
 	private static final int SCHEMA_VERSION=3;
 	private String DB_PATH;
