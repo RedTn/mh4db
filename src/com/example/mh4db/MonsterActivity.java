@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 
 public class MonsterActivity extends ActionBarActivity {
@@ -28,7 +31,7 @@ public class MonsterActivity extends ActionBarActivity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_monster);
 			Log.i("ActivityCheck", "in onCreate (MonsterActivity)");
-			
+
 			setTitle("Monsters");
 
 			openDB();
@@ -52,6 +55,47 @@ public class MonsterActivity extends ActionBarActivity {
 			dataList.setAdapter(adapter);
 
 			dataList.setOnItemClickListener(onGridClick);
+			
+			EditText search = (EditText) findViewById(R.id.searchMonster);
+			search.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					// TODO Auto-generated method stub
+					imageArry.clear();
+					
+					List<Imgset> imgsets = myDb.getImgsetsSearch(s.toString());
+					for (Imgset is : imgsets) {
+						String log = "ID:" + is.getID() + " Name: " + is.getName()
+								+ " ,Image: " + is.getImage();
+
+						// Writing Contacts to log
+						Log.d("Result: ", log);
+						//add contacts data in arrayList
+						imageArry.add(is);
+
+					}
+					adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.item_layout,
+							imageArry);
+					//ListView dataList = (ListView) findViewById(R.id.list);
+					GridView dataList = (GridView) findViewById(R.id.gridView1);
+					dataList.setAdapter(adapter);
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+						int after) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		catch (Exception e)
 		{
@@ -62,53 +106,53 @@ public class MonsterActivity extends ActionBarActivity {
 		}
 	}
 
-	private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickListener() {
-		public void onItemClick(AdapterView<?> parent, 
-				View view, int position,
-				long id)
-		{	
-			Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
+private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickListener() {
+	public void onItemClick(AdapterView<?> parent, 
+			View view, int position,
+			long id)
+	{	
+		Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
 
-			i.putExtra(ID_EXTRA, id);
-			startActivity(i);
-
-		}
-	};
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-
-		closeDB();
-	}
-
-	private void openDB() {
-		myDb = new DBAdapter(this);
-		myDb.open();
-	}
-
-	private void closeDB() {
-		myDb.close();
-	}
-
-	private void displayText(String message) {
+		i.putExtra(ID_EXTRA, id);
+		startActivity(i);
 
 	}
+};
 
-	public void onClick_ClearAll(View v) {
-		displayText("Clicked clear all");
-	}
+@Override
+protected void onDestroy() {
+	super.onDestroy();
 
-	public void onClick_DisplayRecords(View v) {
-		displayText("Clicked display record");
+	closeDB();
+}
 
-		Cursor cursor = myDb.getAllRecords();
-		displayRecordSet(cursor);
-	}
+private void openDB() {
+	myDb = new DBAdapter(this);
+	myDb.open();
+}
 
-	private void displayRecordSet(Cursor cursor) {
+private void closeDB() {
+	myDb.close();
+}
 
-		/*
+private void displayText(String message) {
+
+}
+
+public void onClick_ClearAll(View v) {
+	displayText("Clicked clear all");
+}
+
+public void onClick_DisplayRecords(View v) {
+	displayText("Clicked display record");
+
+	Cursor cursor = myDb.getAllRecords();
+	displayRecordSet(cursor);
+}
+
+private void displayRecordSet(Cursor cursor) {
+
+	/*
 	    String message = "";
 		//Reset cursor to start
 		if (cursor.moveToFirst()) {
@@ -128,41 +172,41 @@ public class MonsterActivity extends ActionBarActivity {
 		cursor.close();
 
 		displayText(message);
-		 */
-	}
+	 */
+}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+	// Inflate the menu; this adds items to the action bar if it is present.
+	getMenuInflater().inflate(R.menu.main, menu);
+	return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+	// Handle action bar item clicks here. The action bar will
+	// automatically handle clicks on the Home/Up button, so long
+	// as you specify a parent activity in AndroidManifest.xml.
+	int id = item.getItemId();
+	if (id == R.id.action_settings) {
 		return true;
 	}
+	return super.onOptionsItemSelected(item);
+}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.i("ActivityCheck", "in onResume (MonsterActivity)");
-	}
-	@Override
-	protected void onPause() {
-		super.onPause();
-		Log.i("ActivityCheck", "in onPause (MonsterActivity)");
-	}
-	@Override
-	protected void onStop() {
-		super.onStop();
-		Log.i("ActivityCheck", "in onStop (MonsterActivity)");
-	}
+@Override
+protected void onResume() {
+	super.onResume();
+	Log.i("ActivityCheck", "in onResume (MonsterActivity)");
+}
+@Override
+protected void onPause() {
+	super.onPause();
+	Log.i("ActivityCheck", "in onPause (MonsterActivity)");
+}
+@Override
+protected void onStop() {
+	super.onStop();
+	Log.i("ActivityCheck", "in onStop (MonsterActivity)");
+}
 }

@@ -24,7 +24,7 @@ public class DescriptActivity extends ActionBarActivity {
 	private ImageView mainicon;
 	ArrayList<Weakset> weakArry = new ArrayList<Weakset>();
 	ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
-	
+
 	private static final String location_header = "Part";
 	private static final String Cut_header = "Cut";
 	private static final String Impact_header = "Imp";
@@ -42,7 +42,7 @@ public class DescriptActivity extends ActionBarActivity {
 	private static final int whitebox_id = -2;
 	private static final int tableLow = 1;
 	private static final int tableHigh = 2;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,6 +66,7 @@ public class DescriptActivity extends ActionBarActivity {
 		title.setText(imgset.getName());
 		mainicon.setImageBitmap(bm);
 
+		displayWeakness();
 	}
 
 	public void onRadioButtonClicked(View view) {
@@ -76,64 +77,51 @@ public class DescriptActivity extends ActionBarActivity {
 		switch(view.getId()) {
 		case R.id.radioweak:
 			if (checked) {
-				weakArry.clear();
-				
-				fillHeaderWeak();
-				
-				List<Weakset> weaksets = myDb.getAllWeaksets();
-				for (Weakset ws : weaksets) {
-					weakArry.add(ws);
-				}
-
-				WeaksetAdapter adapter = new WeaksetAdapter(this, R.layout.weak_layout,
-						weakArry);
-
-				ListView dataList = (ListView) findViewById(R.id.weaklist);
-				dataList.setAdapter(adapter);
+				displayWeakness();
 			}
 			break;
 		case R.id.radiolow:
 			if (checked) {
 				rankArry.clear();
-			
+
 				fillHeaderRank();
-				
-			List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
-			for (Rankset rs : ranksets) {
-			Itemset itemset = myDb.getItemset(rs.get_iid());
-			rs.set_image(itemset.get_image());
-			rs.set_name(itemset.get_name());
-				rankArry.add(rs);
-			}
 
-			RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
-					rankArry);
+				List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
+				for (Rankset rs : ranksets) {
+					Itemset itemset = myDb.getItemset(rs.get_iid());
+					rs.set_image(itemset.get_image());
+					rs.set_name(itemset.get_name());
+					rankArry.add(rs);
+				}
 
-			ListView dataList = (ListView) findViewById(R.id.weaklist);
-			dataList.setAdapter(adapter);
+				RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
+						rankArry);
+
+				ListView dataList = (ListView) findViewById(R.id.weaklist);
+				dataList.setAdapter(adapter);
 			}
 			break;
 		case R.id.radiohigh:
 			if (checked) {
 				rankArry.clear();
-				
+
 				fillHeaderRank();
-				
-			List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
-			for (Rankset rs : ranksets) {
-			Itemset itemset = myDb.getItemset(rs.get_iid());
-			rs.set_image(itemset.get_image());
-			rs.set_name(itemset.get_name());
-				rankArry.add(rs);
-			}
 
-			RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
-					rankArry);
+				List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
+				for (Rankset rs : ranksets) {
+					Itemset itemset = myDb.getItemset(rs.get_iid());
+					rs.set_image(itemset.get_image());
+					rs.set_name(itemset.get_name());
+					rankArry.add(rs);
+				}
 
-			ListView dataList = (ListView) findViewById(R.id.weaklist);
-			dataList.setAdapter(adapter);
+				RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
+						rankArry);
+
+				ListView dataList = (ListView) findViewById(R.id.weaklist);
+				dataList.setAdapter(adapter);
 			}
-				break;    
+			break;    
 		}
 	}
 
@@ -173,17 +161,34 @@ public class DescriptActivity extends ActionBarActivity {
 		super.onStop();
 		Log.i("ActivityCheck", "onStop (DescriptActivity)");
 	}
-	
+
 	private void fillHeaderWeak() {
 		Weakset ws = new Weakset(location_header, Cut_header, Impact_header, Bullet_header, Fire_header, Water_header, 
 				Thunder_header, Ice_header, Dragon_header, Stun_header);
 		weakArry.add(ws);
 	}
-	
+
 	private void fillHeaderRank() {
 		Rankset rs = new Rankset(Name_header, Qty_header, Prob_header, Obtain_header);
 		Itemset itemset = myDb.getItemset(whitebox_id);
 		rs.set_image(itemset.get_image());
 		rankArry.add(rs);
+	}
+
+	private void displayWeakness() {
+		weakArry.clear();
+
+		fillHeaderWeak();
+
+		List<Weakset> weaksets = myDb.getAllWeaksets((int)passedVal);
+		for (Weakset ws : weaksets) {
+			weakArry.add(ws);
+		}
+
+		WeaksetAdapter adapter = new WeaksetAdapter(this, R.layout.weak_layout,
+				weakArry);
+
+		ListView dataList = (ListView) findViewById(R.id.weaklist);
+		dataList.setAdapter(adapter);
 	}
 }

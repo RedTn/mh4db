@@ -160,13 +160,37 @@ public class DBAdapter {
  		return imgList;
 
  	}
+ 	
+ 	// Searchbar Imgsets
+ 	public List<Imgset> getImgsetsSearch(String search) {
+ 		List<Imgset> imgList = new ArrayList<Imgset>();
+ 		
+ 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE + " WHERE name LIKE '" + search + "%'";
+ 		
+ 		Cursor cursor = db.rawQuery(selectQuery, null);
+ 		
+ 		if (cursor.moveToFirst()) {
+ 			do {
+ 				Imgset imgset = new Imgset();
+ 				imgset.setID(Integer.parseInt(cursor.getString(0)));
+ 				imgset.setName(cursor.getString(1));
+ 				imgset.setImage(cursor.getBlob(2));
+ 				// Adding contact to list
+ 				imgList.add(imgset);
+ 			} while (cursor.moveToNext());
+ 		}
+ 		// return contact list
+ 		return imgList;
+ 	}
+ 	
  // Getting All Weaksets
-  	public List<Weakset> getAllWeaksets() {
+  	public List<Weakset> getAllWeaksets(int id) {
   		List<Weakset> weakList = new ArrayList<Weakset>();
   		// Select All Query
-  		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_WEAK  + " ORDER BY id";
-
-  		Cursor cursor = db.rawQuery(selectQuery, null);
+  		
+  		Cursor cursor = db.query(DATABASE_TABLE_WEAK, new String[] { "id",
+				"bid", "location", "cut", "impact", "bullet", "fire", "water", "thunder", "ice", "dragon", "stun" }, "id" + "=?",
+				new String[] { String.valueOf(id) }, null, null, "id", null);
   		// looping through all rows and adding to list
   		if (cursor.moveToFirst()) {
   			do {

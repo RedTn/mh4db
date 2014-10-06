@@ -14,5 +14,6 @@
     <string name="title_activity_monster">MonsterActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="monster_menu">Monster</string>
+    <string name="search_hint">Search by name..</string>
 
 </resources>
