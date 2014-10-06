@@ -17,9 +17,9 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
+//TODO Fix resource leak on database open
 public class MonsterActivity extends ActionBarActivity {
 
-	//private Cursor ourCursor = null;
 	DBAdapter myDb;
 	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
 	ImgsetAdapter adapter;
@@ -48,7 +48,7 @@ public class MonsterActivity extends ActionBarActivity {
 				imageArry.add(is);
 
 			}
-			adapter = new ImgsetAdapter(this, R.layout.item_layout,
+			adapter = new ImgsetAdapter(this, R.layout.descript_layout,
 					imageArry);
 			//ListView dataList = (ListView) findViewById(R.id.list);
 			GridView dataList = (GridView) findViewById(R.id.gridView1);
@@ -61,7 +61,7 @@ public class MonsterActivity extends ActionBarActivity {
 				
 				@Override
 				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					// TODO Auto-generated method stub
+					
 					imageArry.clear();
 					
 					List<Imgset> imgsets = myDb.getImgsetsSearch(s.toString());
@@ -75,7 +75,7 @@ public class MonsterActivity extends ActionBarActivity {
 						imageArry.add(is);
 
 					}
-					adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.item_layout,
+					adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.descript_layout,
 							imageArry);
 					//ListView dataList = (ListView) findViewById(R.id.list);
 					GridView dataList = (GridView) findViewById(R.id.gridView1);
@@ -86,13 +86,13 @@ public class MonsterActivity extends ActionBarActivity {
 				@Override
 				public void beforeTextChanged(CharSequence s, int start, int count,
 						int after) {
-					// TODO Auto-generated method stub
+					
 					
 				}
 				
 				@Override
 				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
+					
 					
 				}
 			});
@@ -111,9 +111,10 @@ private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickL
 			View view, int position,
 			long id)
 	{	
+		Log.i("listen", "position: " + Integer.toString(position) + " id: " + Long.toString(id));
+		Imgset imgset = imageArry.get((int)id);
 		Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
-
-		i.putExtra(ID_EXTRA, id);
+		i.putExtra(ID_EXTRA, (long)imgset.getID());
 		startActivity(i);
 
 	}

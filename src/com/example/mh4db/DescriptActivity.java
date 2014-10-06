@@ -53,7 +53,8 @@ public class DescriptActivity extends ActionBarActivity {
 		myDb.open();
 
 		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
-		passedVal++;
+		
+		Log.i("pass", "passedVal = " + Long.toString(passedVal));
 
 		Imgset imgset = myDb.getImgset((int) passedVal);
 		byte[] byteArray = imgset.getImage();
@@ -66,6 +67,7 @@ public class DescriptActivity extends ActionBarActivity {
 		title.setText(imgset.getName());
 		mainicon.setImageBitmap(bm);
 
+		//TODO when phone rotates, always displays weakness
 		displayWeakness();
 	}
 
@@ -170,8 +172,7 @@ public class DescriptActivity extends ActionBarActivity {
 
 	private void fillHeaderRank() {
 		Rankset rs = new Rankset(Name_header, Qty_header, Prob_header, Obtain_header);
-		Itemset itemset = myDb.getItemset(whitebox_id);
-		rs.set_image(itemset.get_image());
+		rs.set_image(myDb.getExtra(whitebox_id));
 		rankArry.add(rs);
 	}
 

@@ -30,6 +30,11 @@ public class MainActivity extends ActionBarActivity {
 		  Intent intent = new Intent(this, MonsterActivity.class);
 		  startActivity(intent);
 	}
+	public void onItemClick(View view) {
+		// Do something in response to button
+		Intent intent = new Intent(this, ItemActivity.class);
+		startActivity(intent);
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

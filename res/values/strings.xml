@@ -13,7 +13,9 @@
     <string name="highradio">High</string>
     <string name="title_activity_monster">MonsterActivity</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="monster_menu">Monster</string>
+    <string name="monster_menu">Monsters</string>
     <string name="search_hint">Search by name..</string>
+    <string name="item_menu">Items</string>
+    <string name="title_activity_item">ItemActivity</string>
 
 </resources>

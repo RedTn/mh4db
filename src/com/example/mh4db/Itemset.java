@@ -27,6 +27,11 @@ public class Itemset {
 			this._buy = _buy;
 			this._sell = _sell;
 		}
+		
+		public Itemset(byte[] image, String name) {
+			this._image = image;
+			this._name = name;
+		}
 
 		public int get_id() {
 			return _id;

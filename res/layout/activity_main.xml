@@ -19,4 +19,15 @@
         android:onClick="onMonsterClick"
         android:text="@string/monster_menu" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="63dp"
+        android:layout_toRightOf="@+id/button1"
+        android:onClick="onItemClick"
+        android:text="@string/item_menu" />
+
 </RelativeLayout>

@@ -30,32 +30,12 @@ public class DBAdapter {
     private static final String DATABASE_TABLE_LOW = "lowrank";
     private static final String DATABASE_TABLE_HIGH = "highrank";
     private static final String DATABASE_TABLE_ITEM = "item";
+    private static final String DATABASE_TABLE_EXTRA = "extra";
     private static final int DATABASE_VERSION = 3;
     
     //Shared with DescriptAtivity
     private static final int tableLow = 1;
 	private static final int tableHigh = 2;
-    
-
-    /*
-    private static final String DATABASE_CREATE =
-    		"create table " + DATABASE_TABLE 
-			+ " (" + KEY_ROWID + " integer primary key autoincrement, "
-			
-			
-			// TODO: Place your fields here!
-			// + KEY_{...} + " {type} not null"
-			//	- Key is the column name you created above.
-			//	- {type} is one of: text, integer, real, blob
-			//		(http://www.sqlite.org/datatype3.html)
-			//  - "not null" means it is a required field (must be given a value).
-			// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-			+ KEY_NAME + " string not null, "
-			+ KEY_IMAGE + " blob not null, "
-			
-			// Rest  of creation:
-			+ ");";
-	*/
         
     private final Context context;    
 
@@ -158,6 +138,25 @@ public class DBAdapter {
  		}
  		// return contact list
  		return imgList;
+
+ 	}
+ 	
+ 	public List<Itemset> getAllItemsets() {
+ 		List<Itemset> itemList = new ArrayList<Itemset>();
+ 		// Select All Query
+ 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_ITEM  + " ORDER BY id";
+
+ 		Cursor cursor = db.rawQuery(selectQuery, null);
+ 		// looping through all rows and adding to list
+ 		if (cursor.moveToFirst()) {
+ 			do {
+ 				Itemset itemset = new Itemset(cursor.getBlob(1), cursor.getString(2));
+ 				// Adding contact to list
+ 				itemList.add(itemset);
+ 			} while (cursor.moveToNext());
+ 		}
+ 		// return contact list
+ 		return itemList;
 
  	}
  	
@@ -275,6 +274,18 @@ public class DBAdapter {
 				cursor.getBlob(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
 
 		return itemset;
+ 	}
+ 	
+ 	byte[] getExtra(int id) {
+ 		Cursor cursor = db.query(DATABASE_TABLE_EXTRA, new String[] { "id",
+				"image" }, "id" + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
+
+		byte[] image = cursor.getBlob(1);
+
+		return image;
  	}
  	
  	

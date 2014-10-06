@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.mh4db.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,17 +23,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.mh4db.DescriptActivity"
+            android:name=".DescriptActivity"
             android:label="@string/title_activity_descript"
-            android:parentActivityName="com.example.mh4db.MonsterActivity" >
+            android:parentActivityName=".MonsterActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MonsterActivity" />
         </activity>
         <activity
-            android:name="com.example.mh4db.MonsterActivity"
+            android:name=".MonsterActivity"
             android:label="@string/title_activity_monster"
-            android:parentActivityName="com.example.mh4db.MainActivity" >
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mh4db.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ItemActivity"
+            android:label="@string/title_activity_item"
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MainActivity" />
