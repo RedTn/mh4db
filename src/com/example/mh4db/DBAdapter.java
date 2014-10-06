@@ -35,7 +35,6 @@ public class DBAdapter {
     //Shared with DescriptAtivity
     private static final int tableLow = 1;
 	private static final int tableHigh = 2;
-	//test rename
     
 
     /*
