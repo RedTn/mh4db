@@ -9,30 +9,33 @@
         android:id="@+id/ricon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/rname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="" />
 
     <TextView
         android:id="@+id/rqty"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="" />
 
     <TextView
         android:id="@+id/rprob"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="" />
 
     <TextView
         android:id="@+id/robtain"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="" />
 

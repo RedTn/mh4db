@@ -52,9 +52,11 @@ public class RanksetAdapter extends ArrayAdapter<Rankset>{
 		holder.robtain.setText(rs ._obtain);
 		//convert byte to bitmap take from Rankset class
 		byte[] outImage=rs._image;
+		if (outImage != null) {
 		ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
 		Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 		holder.ricon.setImageBitmap(theImage);
+		}
 		return row;
 	}
 	static class Rankholder

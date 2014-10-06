@@ -28,8 +28,13 @@ public class DBAdapter {
     private static final String DATABASE_TABLE = "image";
     private static final String DATABASE_TABLE_WEAK = "weakness";
     private static final String DATABASE_TABLE_LOW = "lowrank";
+    private static final String DATABASE_TABLE_HIGH = "highrank";
     private static final String DATABASE_TABLE_ITEM = "item";
     private static final int DATABASE_VERSION = 3;
+    
+    //Shared with DescriptAtivity
+    private static final int tableLow = 1;
+	private static final int tableHigh = 2;
     
 
     /*
@@ -166,8 +171,8 @@ public class DBAdapter {
   		if (cursor.moveToFirst()) {
   			do {
   				Weakset weakset = new Weakset();
-  				weakset.set_id(cursor.getString(0));
-  				weakset.set_bid(cursor.getString(1));
+  				weakset.set_id(cursor.getInt(0));
+  				weakset.set_bid(cursor.getInt(1));
   				weakset.set_location(cursor.getString(2));
   				weakset.set_cut(cursor.getString(3));
   				weakset.set_impact(cursor.getString(4));
@@ -187,10 +192,18 @@ public class DBAdapter {
 
   	}
  // Getting All Rankset
-   	public List<Rankset> getAllRanksets(int mid) {
+   	public List<Rankset> getAllRanksets(int mid, int table) {
    		List<Rankset> rankList = new ArrayList<Rankset>();
    		// Select All Query
-   		Cursor cursor = db.query(DATABASE_TABLE_LOW, new String[] { "mid",
+   		String tablename = null;
+   		switch (table) {
+   		case tableLow: tablename = DATABASE_TABLE_LOW;
+   			break;
+   		case tableHigh: tablename = DATABASE_TABLE_HIGH;
+   			break;
+   		}
+
+   		Cursor cursor = db.query(tablename, new String[] { "mid",
 				"iid", "qty", "prob", "obtain" }, "mid" + "=?",
 				new String[] { String.valueOf(mid) }, null, null, "iid", null);
    		// looping through all rows and adding to list

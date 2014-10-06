@@ -33,6 +33,13 @@ public class Rankset {
 		this._prob = prob;
 		this._obtain = obtain;
 	}
+	
+	public Rankset(String name, String qty, String prob, String obtain) {
+		this._name = name;
+		this._qty = qty;
+		this._prob = prob;
+		this._obtain = obtain;
+	}
 
 	public int get_mid() {
 		return _mid;

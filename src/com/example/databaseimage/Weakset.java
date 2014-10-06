@@ -3,8 +3,8 @@ package com.example.databaseimage;
 public class Weakset {
 
 	// private variables
-	String _id;
-	String _bid;
+	int _id;
+	int _bid;
 	String _location;
 	String _cut;
 	String _impact;
@@ -22,7 +22,7 @@ public class Weakset {
 	}
 
 	// constructor
-	public Weakset(String keyId, String bid, String location, String cut, String impact, String bullet, String fire, String water, String thunder,
+	public Weakset(int keyId, int bid, String location, String cut, String impact, String bullet, String fire, String water, String thunder,
 			String ice, String dragon, String stun) {
 		this._id = keyId;
 		this._bid = bid;
@@ -53,19 +53,19 @@ public class Weakset {
 		this._stun = stun;
 	}
 
-	public String get_id() {
+	public int get_id() {
 		return _id;
 	}
 
-	public void set_id(String _id) {
+	public void set_id(int _id) {
 		this._id = _id;
 	}
 
-	public String get_bid() {
+	public int get_bid() {
 		return _bid;
 	}
 
-	public void set_bid(String _bid) {
+	public void set_bid(int _bid) {
 		this._bid = _bid;
 	}
 

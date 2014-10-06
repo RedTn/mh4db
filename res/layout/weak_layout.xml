@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/weakView1"
-          android:layout_weight="2"
+        android:layout_weight="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />

@@ -24,7 +24,25 @@ public class DescriptActivity extends ActionBarActivity {
 	private ImageView mainicon;
 	ArrayList<Weakset> weakArry = new ArrayList<Weakset>();
 	ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
-
+	
+	private static final String location_header = "Part";
+	private static final String Cut_header = "Cut";
+	private static final String Impact_header = "Imp";
+	private static final String Bullet_header = "Shot";
+	private static final String Fire_header = "Fire";
+	private static final String Water_header = "Water";
+	private static final String Thunder_header = "Thun";
+	private static final String Ice_header = "Ice";
+	private static final String Dragon_header = "Drag";
+	private static final String Stun_header = "Stun";
+	private static final String Name_header = "Item";
+	private static final String Qty_header = "Qty";
+	private static final String Prob_header = "Prob";
+	private static final String Obtain_header = "How to obtain";
+	private static final int whitebox_id = -2;
+	private static final int tableLow = 1;
+	private static final int tableHigh = 2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,6 +77,9 @@ public class DescriptActivity extends ActionBarActivity {
 		case R.id.radioweak:
 			if (checked) {
 				weakArry.clear();
+				
+				fillHeaderWeak();
+				
 				List<Weakset> weaksets = myDb.getAllWeaksets();
 				for (Weakset ws : weaksets) {
 					weakArry.add(ws);
@@ -74,7 +95,10 @@ public class DescriptActivity extends ActionBarActivity {
 		case R.id.radiolow:
 			if (checked) {
 				rankArry.clear();
-			List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal);
+			
+				fillHeaderRank();
+				
+			List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
 			for (Rankset rs : ranksets) {
 			Itemset itemset = myDb.getItemset(rs.get_iid());
 			rs.set_image(itemset.get_image());
@@ -90,8 +114,25 @@ public class DescriptActivity extends ActionBarActivity {
 			}
 			break;
 		case R.id.radiohigh:
-			if (checked)
+			if (checked) {
+				rankArry.clear();
+				
+				fillHeaderRank();
+				
+			List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
+			for (Rankset rs : ranksets) {
+			Itemset itemset = myDb.getItemset(rs.get_iid());
+			rs.set_image(itemset.get_image());
+			rs.set_name(itemset.get_name());
+				rankArry.add(rs);
+			}
 
+			RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
+					rankArry);
+
+			ListView dataList = (ListView) findViewById(R.id.weaklist);
+			dataList.setAdapter(adapter);
+			}
 				break;    
 		}
 	}
@@ -131,5 +172,18 @@ public class DescriptActivity extends ActionBarActivity {
 	protected void onStop() {
 		super.onStop();
 		Log.i("ActivityCheck", "onStop (DescriptActivity)");
+	}
+	
+	private void fillHeaderWeak() {
+		Weakset ws = new Weakset(location_header, Cut_header, Impact_header, Bullet_header, Fire_header, Water_header, 
+				Thunder_header, Ice_header, Dragon_header, Stun_header);
+		weakArry.add(ws);
+	}
+	
+	private void fillHeaderRank() {
+		Rankset rs = new Rankset(Name_header, Qty_header, Prob_header, Obtain_header);
+		Itemset itemset = myDb.getItemset(whitebox_id);
+		rs.set_image(itemset.get_image());
+		rankArry.add(rs);
 	}
 }
