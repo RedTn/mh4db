@@ -150,7 +150,7 @@ public class DBAdapter {
  		// looping through all rows and adding to list
  		if (cursor.moveToFirst()) {
  			do {
- 				Itemset itemset = new Itemset(cursor.getBlob(1), cursor.getString(2));
+ 				Itemset itemset = new Itemset(cursor.getInt(0),cursor.getBlob(1), cursor.getString(2));
  				// Adding contact to list
  				itemList.add(itemset);
  			} while (cursor.moveToNext());
@@ -180,6 +180,27 @@ public class DBAdapter {
  		}
  		// return contact list
  		return imgList;
+ 	}
+ 	
+ 	public List<Itemset> getItemsetsSearch(String search) {
+ 		List<Itemset> itemList = new ArrayList<Itemset>();
+ 		
+ 		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_ITEM + " WHERE name LIKE '" + search + "%'";
+ 		
+ 		Cursor cursor = db.rawQuery(selectQuery, null);
+ 		
+ 		if (cursor.moveToFirst()) {
+ 			do {
+ 				Itemset itemset = new Itemset();
+ 				itemset.set_id(cursor.getInt(0));
+ 				itemset.set_name(cursor.getString(2));
+ 				itemset.set_image(cursor.getBlob(1));
+ 			
+ 				itemList.add(itemset);
+ 			} while (cursor.moveToNext());
+ 		}
+ 		
+ 		return itemList;
  	}
  	
  // Getting All Weaksets

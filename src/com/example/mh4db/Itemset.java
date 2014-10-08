@@ -28,7 +28,8 @@ public class Itemset {
 			this._sell = _sell;
 		}
 		
-		public Itemset(byte[] image, String name) {
+		public Itemset(int id, byte[] image, String name) {
+			this._id = id;
 			this._image = image;
 			this._name = name;
 		}

@@ -53,7 +53,7 @@ public class DescriptActivity extends ActionBarActivity {
 		myDb.open();
 
 		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
-		
+
 		Log.i("pass", "passedVal = " + Long.toString(passedVal));
 
 		Imgset imgset = myDb.getImgset((int) passedVal);
@@ -68,7 +68,15 @@ public class DescriptActivity extends ActionBarActivity {
 		mainicon.setImageBitmap(bm);
 
 		//TODO when phone rotates, always displays weakness
-		displayWeakness();
+		//temp fix:  android:saveEnabled="false" on radio button, but defaults to weakness on rotate
+		RadioButton weak,low,high;
+		weak = (RadioButton) findViewById(R.id.radioweak);
+		low = (RadioButton) findViewById(R.id.radiolow);
+		high = (RadioButton) findViewById(R.id.radiohigh);
+		
+		if(weak.isChecked())	displayWeakness();
+		else if(low.isChecked())	displayLow();
+		else if(high.isChecked())	displayHigh();
 	}
 
 	public void onRadioButtonClicked(View view) {
@@ -84,44 +92,12 @@ public class DescriptActivity extends ActionBarActivity {
 			break;
 		case R.id.radiolow:
 			if (checked) {
-				rankArry.clear();
-
-				fillHeaderRank();
-
-				List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
-				for (Rankset rs : ranksets) {
-					Itemset itemset = myDb.getItemset(rs.get_iid());
-					rs.set_image(itemset.get_image());
-					rs.set_name(itemset.get_name());
-					rankArry.add(rs);
-				}
-
-				RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
-						rankArry);
-
-				ListView dataList = (ListView) findViewById(R.id.weaklist);
-				dataList.setAdapter(adapter);
+				displayLow();
 			}
 			break;
 		case R.id.radiohigh:
 			if (checked) {
-				rankArry.clear();
-
-				fillHeaderRank();
-
-				List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
-				for (Rankset rs : ranksets) {
-					Itemset itemset = myDb.getItemset(rs.get_iid());
-					rs.set_image(itemset.get_image());
-					rs.set_name(itemset.get_name());
-					rankArry.add(rs);
-				}
-
-				RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
-						rankArry);
-
-				ListView dataList = (ListView) findViewById(R.id.weaklist);
-				dataList.setAdapter(adapter);
+				displayHigh();
 			}
 			break;    
 		}
@@ -188,6 +164,46 @@ public class DescriptActivity extends ActionBarActivity {
 
 		WeaksetAdapter adapter = new WeaksetAdapter(this, R.layout.weak_layout,
 				weakArry);
+
+		ListView dataList = (ListView) findViewById(R.id.weaklist);
+		dataList.setAdapter(adapter);
+	}
+
+	private void displayLow() {
+		rankArry.clear();
+
+		fillHeaderRank();
+
+		List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
+		for (Rankset rs : ranksets) {
+			Itemset itemset = myDb.getItemset(rs.get_iid());
+			rs.set_image(itemset.get_image());
+			rs.set_name(itemset.get_name());
+			rankArry.add(rs);
+		}
+
+		RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
+				rankArry);
+
+		ListView dataList = (ListView) findViewById(R.id.weaklist);
+		dataList.setAdapter(adapter);
+	}
+
+	private void displayHigh() {
+		rankArry.clear();
+
+		fillHeaderRank();
+
+		List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
+		for (Rankset rs : ranksets) {
+			Itemset itemset = myDb.getItemset(rs.get_iid());
+			rs.set_image(itemset.get_image());
+			rs.set_name(itemset.get_name());
+			rankArry.add(rs);
+		}
+
+		RanksetAdapter adapter = new RanksetAdapter(this, R.layout.rank_layout,
+				rankArry);
 
 		ListView dataList = (ListView) findViewById(R.id.weaklist);
 		dataList.setAdapter(adapter);

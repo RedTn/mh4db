@@ -17,5 +17,6 @@
     <string name="search_hint">Search by name..</string>
     <string name="item_menu">Items</string>
     <string name="title_activity_item">ItemActivity</string>
+    <string name="title_activity_item_detail">ItemDetailActivity</string>
 
 </resources>

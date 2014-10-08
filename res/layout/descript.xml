@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:onClick="onRadioButtonClicked"
+            android:saveEnabled="false"
             android:text="@string/weakradio" />
 
         <RadioButton
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
+            android:saveEnabled="false"
             android:text="@string/lowradio" />
 
         <RadioButton
@@ -63,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
+            android:saveEnabled="false"
             android:text="@string/highradio" />
     </RadioGroup>
 
