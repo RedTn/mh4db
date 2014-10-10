@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 
-//TODO Fix resource leak on database open
+/*TODO -Fix resource leak on database open
+ * -When searching, typing one character forces selection to first item in gridview
+ */
 public class MonsterActivity extends ActionBarActivity {
 
 	DBAdapter myDb;
@@ -56,6 +58,7 @@ public class MonsterActivity extends ActionBarActivity {
 
 			dataList.setOnItemClickListener(onGridClick);
 			
+			/*
 			EditText search = (EditText) findViewById(R.id.searchMonster);
 			search.addTextChangedListener(new TextWatcher() {
 				
@@ -96,6 +99,8 @@ public class MonsterActivity extends ActionBarActivity {
 					
 				}
 			});
+			*/
+			//setupUI(findViewById(R.id.parentmonster));
 		}
 		catch (Exception e)
 		{
@@ -136,51 +141,45 @@ private void closeDB() {
 	myDb.close();
 }
 
-private void displayText(String message) {
-
-}
-
-public void onClick_ClearAll(View v) {
-	displayText("Clicked clear all");
-}
-
-public void onClick_DisplayRecords(View v) {
-	displayText("Clicked display record");
-
-	Cursor cursor = myDb.getAllRecords();
-	displayRecordSet(cursor);
-}
-
-private void displayRecordSet(Cursor cursor) {
-
-	/*
-	    String message = "";
-		//Reset cursor to start
-		if (cursor.moveToFirst()) {
-			do {
-			int id = cursor.getInt(0);
-			String name = cursor.getString(1);
-			String title = cursor.getString(2);
-
-			// Append data to the message
-			message += "id=" + id
-						+ ", name=" + name
-						+ ", title=" + title
-						+ "\n";
-			} while(cursor.moveToNext());
-		}
-		//Resource leak
-		cursor.close();
-
-		displayText(message);
-	 */
-}
-
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
-	getMenuInflater().inflate(R.menu.main, menu);
-	return true;
+	MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.monster_activity_actions, menu);
+    MenuItem searchItem = menu.findItem(R.id.action_search);
+    SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+    searchView.setOnQueryTextListener(new OnQueryTextListener() {
+		
+		@Override
+		public boolean onQueryTextSubmit(String arg0) {
+			
+			return true;
+		}
+		
+		@Override
+		public boolean onQueryTextChange(String arg0) {
+			imageArry.clear();
+			
+			List<Imgset> imgsets = myDb.getImgsetsSearch(arg0);
+			for (Imgset is : imgsets) {
+				String log = "ID:" + is.getID() + " Name: " + is.getName()
+						+ " ,Image: " + is.getImage();
+
+				// Writing Contacts to log
+				Log.d("Result: ", log);
+				//add contacts data in arrayList
+				imageArry.add(is);
+
+			}
+			adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.descript_layout,
+					imageArry);
+			//ListView dataList = (ListView) findViewById(R.id.list);
+			GridView dataList = (GridView) findViewById(R.id.gridView1);
+			dataList.setAdapter(adapter);
+			return true;
+		}
+	});
+    return super.onCreateOptionsMenu(menu);
 }
 
 @Override
@@ -194,7 +193,40 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	}
 	return super.onOptionsItemSelected(item);
 }
+/*
+public static void hideSoftKeyboard(Activity activity) {
+    InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+}
 
+public void setupUI(View view) {
+
+    //Set up touch listener for non-text box views to hide keyboard.
+    if(!(view instanceof EditText)) {
+
+        view.setOnTouchListener(new OnTouchListener() {
+
+        	@Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideSoftKeyboard(MonsterActivity.this);
+                return true;
+            }
+
+        });
+    }
+
+    //If a layout container, iterate over children and seed recursion.
+    if (view instanceof ViewGroup) {
+
+        for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+
+            View innerView = ((ViewGroup) view).getChildAt(i);
+
+            setupUI(innerView);
+        }
+    }
+}
+*/
 @Override
 protected void onResume() {
 	super.onResume();

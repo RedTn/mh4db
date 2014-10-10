@@ -8,4 +8,57 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mh4db.ItemDetailActivity" >
 
+    <ImageView
+        android:id="@+id/itempic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/qtyView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/itempic"
+        android:layout_centerHorizontal="true"
+        android:text="@string/qty_header" />
+
+    <TextView
+        android:id="@+id/rareView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/qty"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="36dp"
+        android:text="@string/rarity_header" />
+
+    <TextView
+        android:id="@+id/rare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/qty"
+        android:layout_alignBottom="@+id/qty"
+        android:layout_alignLeft="@+id/rareView2"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/qtyView1"
+        android:layout_below="@+id/qtyView1"
+        android:layout_marginTop="14dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qty"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
 </RelativeLayout>

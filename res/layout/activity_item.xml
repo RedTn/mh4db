@@ -10,17 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mh4db.ItemActivity" >
 
-    <EditText
-        android:id="@+id/searchItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/search_hint"
-        android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
-
     <ListView
         android:id="@+id/itemList"
         android:layout_width="match_parent"

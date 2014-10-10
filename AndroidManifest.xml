@@ -54,6 +54,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.ItemActivity" />
         </activity>
+
     </application>
 
 </manifest>

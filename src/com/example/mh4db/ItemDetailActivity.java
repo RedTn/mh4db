@@ -1,14 +1,21 @@
 package com.example.mh4db;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ItemDetailActivity extends Activity {
 	long passedVal;
 	DBAdapter myDb;
+	private ImageView imagepic;
+	private TextView qty = null;
+	private TextView rare = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +27,19 @@ public class ItemDetailActivity extends Activity {
 
 		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
 		Log.i("pass", "passedVal = " + Long.toString(passedVal));
+		
+		Itemset itemset = myDb.getItemset((int) passedVal);
+		byte[] byteArray = itemset.get_image();
+		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+		setTitle(itemset.get_name());
+		
+		qty = (TextView) findViewById(R.id.qty);
+		rare = (TextView) findViewById(R.id.rare);
+		imagepic = (ImageView) findViewById(R.id.itempic);
+		imagepic.setImageBitmap(bm);
+		qty.setText(itemset.get_qty());
+		rare.setText(itemset.get_rare());
 	}
 
 	@Override

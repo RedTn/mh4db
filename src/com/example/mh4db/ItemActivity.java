@@ -3,20 +3,24 @@ package com.example.mh4db;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class ItemActivity extends Activity {
+public class ItemActivity extends ActionBarActivity {
 	
 	DBAdapter myDb;
 	ArrayList<Itemset> itemArry = new ArrayList<Itemset>();
@@ -47,39 +51,6 @@ public class ItemActivity extends Activity {
 		
 		dataList.setOnItemClickListener(onItemListClick);
 		
-		EditText search = (EditText) findViewById(R.id.searchItem);
-		search.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
-				itemArry.clear();
-				
-				List<Itemset> itemsets = myDb.getItemsetsSearch(s.toString());
-				for (Itemset is : itemsets) {
-					itemArry.add(is);
-				}
-				adapter = new ItemsetAdapter(ItemActivity.this, R.layout.item_layout,
-						itemArry);
-
-				ListView dataList = (ListView) findViewById(R.id.itemList);
-				dataList.setAdapter(adapter);
-				
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				
-				
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				
-				
-			}
-		});
 	}
 
 	private AdapterView.OnItemClickListener onItemListClick=new AdapterView.OnItemClickListener() {
@@ -97,8 +68,35 @@ public class ItemActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.item, menu);
-		return true;
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.monster_activity_actions, menu);
+	    MenuItem searchItem = menu.findItem(R.id.action_search);
+	    SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+	    searchView.setOnQueryTextListener(new OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				
+				return true;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+				itemArry.clear();
+				
+				List<Itemset> itemsets = myDb.getItemsetsSearch(arg0);
+				for (Itemset is : itemsets) {
+					itemArry.add(is);
+				}
+				adapter = new ItemsetAdapter(ItemActivity.this, R.layout.item_layout,
+						itemArry);
+
+				ListView dataList = (ListView) findViewById(R.id.itemList);
+				dataList.setAdapter(adapter);
+				return true;
+			}
+		});
+	    return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
