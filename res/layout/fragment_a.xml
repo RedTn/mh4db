@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFCC00"
+    tools:context="com.example.mh4db.FragmentA" >
+
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.mh4db.ItemDetailActivity" >
+
+    <ImageView
+        android:id="@+id/itempic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/qtyView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/itempic"
+        android:layout_centerHorizontal="true"
+        android:text="@string/qty_header" />
+
+    <TextView
+        android:id="@+id/rareView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/qty"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:text="@string/rarity_header" />
+
+    <TextView
+        android:id="@+id/rare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/qty"
+        android:layout_alignBottom="@+id/qty"
+        android:layout_alignLeft="@+id/rareView2"
+        android:layout_alignStart="@+id/rareView2"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/qtyView1"
+        android:layout_alignStart="@+id/qtyView1"
+        android:layout_below="@+id/qtyView1"
+        android:layout_marginTop="14dp"
+        android:text="" />
+
+    <ListView android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/itempic"
+        android:layout_alignStart="@+id/itempic"
+        android:layout_below="@+id/titleA"
+        android:layout_marginTop="50dp" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/titleA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itempic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="" />
+
+</RelativeLayout>
+
+</FrameLayout>

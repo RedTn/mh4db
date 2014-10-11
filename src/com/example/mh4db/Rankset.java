@@ -10,6 +10,16 @@ public class Rankset {
 	String _qty;
 	String _prob;
 	String _obtain;
+	boolean _low;
+	public Boolean get_low() {
+		return _low;
+	}
+
+	public void set_low(Boolean _low) {
+		this._low = _low;
+	}
+
+	
 
 	// Empty constructor
 	public Rankset() {

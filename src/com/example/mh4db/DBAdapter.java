@@ -268,6 +268,39 @@ public class DBAdapter {
    		return rankList;
 
    	}
+   	
+   	public List<Rankset> getAllRanksetsByIid(int iid, int table) {
+   		List<Rankset> rankList = new ArrayList<Rankset>();
+   		// Select All Query
+   		String tablename = null;
+   		switch (table) {
+   		case tableLow: tablename = DATABASE_TABLE_LOW;
+   			break;
+   		case tableHigh: tablename = DATABASE_TABLE_HIGH;
+   			break;
+   		}
+
+   		Cursor cursor = db.query(tablename, new String[] { "mid",
+				"iid", "qty", "prob", "obtain" }, "iid" + "=?",
+				new String[] { String.valueOf(iid) }, null, null, null, null);
+   		// looping through all rows and adding to list
+   		if (cursor.moveToFirst()) {
+   			do {
+   				Rankset rankset = new Rankset();
+   				rankset.set_mid(cursor.getInt(0));
+   				rankset.set_iid(cursor.getInt(1));
+   				rankset.set_qty(cursor.getString(2));
+   				rankset.set_prob(cursor.getString(3));
+   				rankset.set_obtain(cursor.getString(4));
+   				
+   				// Adding contact to list
+   				rankList.add(rankset);
+   			} while (cursor.moveToNext());
+   		}
+   		// return contact list
+   		return rankList;
+
+   	}
  	
  	Imgset getImgset(int id) {
 

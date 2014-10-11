@@ -20,8 +20,9 @@
     <string name="title_activity_item_detail">ItemDetailActivity</string>
     <string name="search_title">Search..</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
-    <string name="qty_header">Qty</string>
+    <string name="qty_header">Max Quantity</string>
     <string name="rarity_header">Rarity</string>
     <string name="action_search">Search</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
