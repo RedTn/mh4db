@@ -3,6 +3,7 @@ package com.example.mh4db;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,12 +47,26 @@ public class FragA_Adapter extends ArrayAdapter<Rankset>{
 		holder.iqty.setText(rs ._qty);
 		holder.iprob.setText(rs ._prob);
 		holder.iobtain.setText(rs ._obtain);
-	
-		if(rs ._low) holder.irank.setText("Low Rank");
-		else holder.irank.setText("High Rank");
+		holder.irank.setText(rs ._low);
+		if(rs ._header) {
+			holder.iname.setTextColor(Color.parseColor("#000000"));
+			holder.iqty.setTextColor(Color.parseColor("#000000"));
+			holder.iprob.setTextColor(Color.parseColor("#000000"));
+			holder.iobtain.setTextColor(Color.parseColor("#000000"));
+			holder.irank.setTextColor(Color.parseColor("#000000"));
+		}
 
 		return row;
 	}
+	
+	public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    public boolean isEnabled(int position) {
+       if(position == 0) return false;
+       else return true;
+    }
 	static class Rankholder
 	{
 		TextView iname;

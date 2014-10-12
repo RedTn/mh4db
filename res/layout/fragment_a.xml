@@ -78,7 +78,41 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/itempic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="40dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/buyView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sellView1"
+        android:layout_alignBottom="@+id/sellView1"
+        android:layout_alignLeft="@+id/rare"
+        android:text="@string/buy_header" />
+
+    <TextView
+        android:id="@+id/sellView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itempic"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sell_header" />
+
+    <TextView
+        android:id="@+id/sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sellView1"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sell"
+        android:layout_alignBottom="@+id/sell"
+        android:layout_alignLeft="@+id/buyView1"
         android:text="" />
 
 </RelativeLayout>

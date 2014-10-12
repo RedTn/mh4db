@@ -2,13 +2,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="com.example.mh4db.FragmentB" >
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment B" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/makes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <ListView
+            android:id="@+id/makelist"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="10dp" >
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/tomake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="" />
+
+        <ListView
+            android:id="@+id/tomakelist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+        </ListView>
+
+    </LinearLayout>
 
 </FrameLayout>

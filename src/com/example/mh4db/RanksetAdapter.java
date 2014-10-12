@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class RanksetAdapter extends ArrayAdapter<Rankset>{
 	Context context;
 	int layoutResourceId;
+
 	ArrayList<Rankset> data=new ArrayList<Rankset>();
 	public RanksetAdapter(Context context, int layoutResourceId, ArrayList<Rankset> data) {
 		super(context, layoutResourceId, data);
@@ -52,13 +53,21 @@ public class RanksetAdapter extends ArrayAdapter<Rankset>{
 		holder.robtain.setText(rs ._obtain);
 		//convert byte to bitmap take from Rankset class
 		byte[] outImage=rs._image;
-		if (outImage != null) {
 		ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
 		Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 		holder.ricon.setImageBitmap(theImage);
-		}
 		return row;
 	}
+	
+	public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    public boolean isEnabled(int position) {
+       if(position == 0) return false;
+       else return true;
+    }
+    
 	static class Rankholder
 	{
 		ImageView ricon;

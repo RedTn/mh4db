@@ -5,17 +5,28 @@ public class Rankset {
 	// private variables
 	int _mid;
 	int _iid;
-	byte[] _image;
+	byte[] _image = null;
 	String _name;
 	String _qty;
 	String _prob;
 	String _obtain;
-	boolean _low;
-	public Boolean get_low() {
+	String _low;
+	boolean _header = false;
+	
+	public boolean is_header() {
+		return _header;
+	}
+
+	public void set_header(boolean _header) {
+		this._header = _header;
+	}
+
+	
+	public String get_low() {
 		return _low;
 	}
 
-	public void set_low(Boolean _low) {
+	public void set_low(String _low) {
 		this._low = _low;
 	}
 

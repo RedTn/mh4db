@@ -60,6 +60,15 @@ public class WeaksetAdapter extends ArrayAdapter<Weakset>{
 		
 		return row;
 	}
+	
+	public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    public boolean isEnabled(int position) {
+      return false;
+    }
+    
 	static class WeakHolder
 	{
 		TextView weakView1;

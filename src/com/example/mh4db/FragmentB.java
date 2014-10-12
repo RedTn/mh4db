@@ -1,12 +1,19 @@
 package com.example.mh4db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -20,6 +27,7 @@ public class FragmentB extends Fragment {
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
+	private static final int whitebox_id = -2;
 
 	// TODO: Rename and change types of parameters
 	private String mParam1;
@@ -64,7 +72,74 @@ public class FragmentB extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_b, container, false);
+		Context context = getActivity().getApplicationContext();
+		DBAdapter myDb = new DBAdapter(context);
+		myDb.open();
+
+		int passedVal = getArguments().getInt("passed");
+		
+		Itemset itemset = myDb.getItemset((int) passedVal);
+		
+		View myInflatedView = inflater.inflate(R.layout.fragment_b, container, false);
+		TextView makes = (TextView) myInflatedView.findViewById(R.id.makes);
+		TextView tomake = (TextView) myInflatedView.findViewById(R.id.tomake);
+		
+		ArrayList<Comboset> comboArry = new ArrayList<Comboset>();
+		
+		List<Comboset> combosets = myDb.getCombosetByIid(itemset.get_id());
+		if(!combosets.isEmpty()){
+			comboArry.add(fillHeader(myDb.getExtra(whitebox_id)));
+			for(Comboset cs: combosets) {
+				Itemset itemset2 = new Itemset();
+				if(cs.get_iid() == passedVal) itemset2 = myDb.getItemset(cs.get_iid2());
+				else itemset2 = myDb.getItemset(cs.get_iid());
+				cs.set_namea(itemset2.get_name());
+				cs.set_imagea(itemset2.get_image());
+				Itemset itemset3 = myDb.getItemset(cs.get_result());
+				cs.set_nameb(itemset3.get_name());
+				cs.set_imageb(itemset3.get_image());
+				comboArry.add(cs);
+				
+			}
+		}
+		else {
+			makes.setText("This item does not combine into anything");
+		}
+		
+		CombosetAdapter adapter = new CombosetAdapter(context, R.layout.fragment_b_make_layout,
+				comboArry);
+
+		ListView dataList = (ListView) myInflatedView.findViewById(R.id.makelist);
+		dataList.setAdapter(adapter);
+		
+		ArrayList<Comboset> comboArry2 = new ArrayList<Comboset>();
+		combosets.clear();
+		
+		combosets = myDb.getCombosetByResult(itemset.get_id());
+		if(!combosets.isEmpty()){
+			comboArry2.add(fillHeaderB(myDb.getExtra(whitebox_id)));
+			for(Comboset cs: combosets) {
+				Itemset itemset2 = new Itemset();
+				itemset2 = myDb.getItemset(cs.get_iid());
+				cs.set_namea(itemset2.get_name());
+				cs.set_imagea(itemset2.get_image());
+				Itemset itemset3 = myDb.getItemset(cs.get_iid2());
+				cs.set_nameb(itemset3.get_name());
+				cs.set_imageb(itemset3.get_image());
+				comboArry2.add(cs);
+				
+			}
+		}
+		else {
+			tomake.setText("This item is not combined from anything");
+		}
+		
+		CombosetAdapter adapter2 = new CombosetAdapter(context, R.layout.fragment_b_make_layout,
+				comboArry2);
+
+		ListView dataList2 = (ListView) myInflatedView.findViewById(R.id.tomakelist);
+		dataList2.setAdapter(adapter2);
+		return myInflatedView;
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
@@ -103,6 +178,30 @@ public class FragmentB extends Fragment {
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
+	}
+	
+	public Comboset fillHeader(byte[] whitebox) {
+		Comboset comboset = new Comboset();
+		comboset.set_qty("Amt");
+		comboset.set_prob("Prob");
+		comboset.set_imagea(whitebox);
+		comboset.set_namea("Item B");
+		comboset.set_imageb(whitebox);
+		comboset.set_nameb("Result");
+		
+		return comboset;
+	}
+	
+	public Comboset fillHeaderB(byte[] whitebox) {
+		Comboset comboset = new Comboset();
+		comboset.set_qty("Amt");
+		comboset.set_prob("Prob");
+		comboset.set_imagea(whitebox);
+		comboset.set_namea("Item A");
+		comboset.set_imageb(whitebox);
+		comboset.set_nameb("Item B");
+		
+		return comboset;
 	}
 
 }

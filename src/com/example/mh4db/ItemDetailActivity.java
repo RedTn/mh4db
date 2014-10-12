@@ -3,7 +3,6 @@ package com.example.mh4db;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
-import android.support.v4.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,19 +15,13 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ItemDetailActivity extends FragmentActivity implements FragmentA.OnFragmentInteractionListener,FragmentB.OnFragmentInteractionListener,FragmentC.OnFragmentInteractionListener,TabListener {
 	long passedVal;
 	DBAdapter myDb;
-	private ImageView imagepic;
-	private TextView qty = null;
-	private TextView rare = null;
 	ActionBar actionBar;
 	ViewPager viewPager;
 	MyAdapter adapter;
-	private FragmentTransaction mCurTransaction = null;
 	Bundle bundle;
 
 	@Override
@@ -70,11 +63,11 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		ActionBar.Tab tab1= actionBar.newTab();
-		tab1.setText("Tab 1");
+		tab1.setText("Monster");
 		tab1.setTabListener(this);
 		
 		ActionBar.Tab tab2= actionBar.newTab();
-		tab2.setText("Tab 2");
+		tab2.setText("Combo");
 		tab2.setTabListener(this);
 		
 		ActionBar.Tab tab3= actionBar.newTab();
@@ -87,24 +80,12 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		
 		
 		Itemset itemset = myDb.getItemset((int) passedVal);
-		/*
-		byte[] byteArray = itemset.get_image();
-		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-*/
+
 		setTitle(itemset.get_name());
 		myDb.close();
 		bundle = new Bundle();
 		bundle.putInt("passed", (int) passedVal);
 		
-	//	qty = (TextView) findViewById(R.id.qty);
-	//	rare = (TextView) findViewById(R.id.rare);
-	//	imagepic = (ImageView) findViewById(R.id.itempic);
-	//	imagepic.setImageBitmap(bm);
-	//	qty.setText(itemset.get_qty());
-	//	rare.setText(itemset.get_rare());
-	//	FragmentA fragment = new FragmentA();
-	//	fragment.setText(itemset.get_qty(), itemset.get_rare());
-		//FragmentA fragment_obj = (FragmentA) adapter.getRegisteredFragment(viewPager.getCurrentItem());
 	}
 	
 	class MyAdapter extends FragmentPagerAdapter {
@@ -123,6 +104,7 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 			}
 			if(arg0 == 1) {
 				fragment = new FragmentB();
+				fragment.setArguments(bundle);
 			}
 			if(arg0 == 2) {
 				fragment = new FragmentC();

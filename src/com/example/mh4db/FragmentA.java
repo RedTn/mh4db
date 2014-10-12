@@ -33,6 +33,12 @@ public class FragmentA extends ListFragment {
 	private static final String ARG_PARAM2 = "param2";
 	private static final int tableLow = 1;
 	private static final int tableHigh = 2;
+	private static final String noItems = "You cannot obtain this item from monsters.";
+	private static final String name_header = "Name";
+	private static final String rank_header = "Rank";
+	private static final String qty_header = "Qty";
+	private static final String prob_header = "Prob";
+	private static final String obtain_header = "Obtain";
 	
 
 	// TODO: Rename and change types of parameters
@@ -81,46 +87,59 @@ public class FragmentA extends ListFragment {
 		Context context = getActivity().getApplicationContext();
 		DBAdapter myDb = new DBAdapter(context);
 		myDb.open();
-		
+
 		int passedVal = getArguments().getInt("passed");
-		
+
 		Itemset itemset = myDb.getItemset((int) passedVal);
 		byte[] byteArray = itemset.get_image();
 		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-		
+
 		View myInflatedView = inflater.inflate(R.layout.fragment_a, container, false);
 		TextView rare = (TextView) myInflatedView.findViewById(R.id.rare);
 		TextView qty = (TextView) myInflatedView.findViewById(R.id.qty);
 		ImageView imagepic = (ImageView) myInflatedView.findViewById(R.id.itempic);
+		TextView sell = (TextView) myInflatedView.findViewById(R.id.sell);
+		TextView buy = (TextView) myInflatedView.findViewById(R.id.buy);
 		rare.setText(itemset.get_rare());
 		qty.setText(itemset.get_qty());
+		sell.setText(itemset.get_sell());
+		buy.setText(itemset.get_buy());
 		imagepic.setImageBitmap(bm);
-		
+
 		ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
 
 		List<Rankset> ranksets = myDb.getAllRanksetsByIid(itemset.get_id(), tableLow);
-		if (!ranksets.isEmpty()) {
-		for (Rankset rs : ranksets) {
-			Imgset imgset = myDb.getImgset(rs.get_mid());
-			rs.set_name(imgset.getName());
-			rs.set_low(true);
-			rankArry.add(rs);
-		}
 		List<Rankset> ranksets_h = myDb.getAllRanksetsByIid(itemset.get_id(), tableHigh);
-		if (!ranksets_h.isEmpty()) {
-			for (Rankset rs : ranksets_h) {
-				Imgset imgset = myDb.getImgset(rs.get_mid());
-				rs.set_name(imgset.getName());
-				rs.set_low(false);
-				rankArry.add(rs);
+		if ((!ranksets.isEmpty()) || (!ranksets_h.isEmpty())) {
+			rankArry.add(fillHeader());
+			if (!ranksets.isEmpty()) {	
+				for (Rankset rs : ranksets) {
+					Imgset imgset = myDb.getImgset(rs.get_mid());
+					rs.set_name(imgset.getName());
+					rs.set_low("Low Rank");
+					rankArry.add(rs);
+				}
 			}
-		}
-		FragA_Adapter adapter = new FragA_Adapter(context, R.layout.fragment_a_layout,
-				rankArry);
+			if (!ranksets_h.isEmpty()) {
+				for (Rankset rs_h : ranksets_h) {
+					Imgset imgset_h = myDb.getImgset(rs_h.get_mid());
+					rs_h.set_name(imgset_h.getName());
+					rs_h.set_low("High Rank");
+					rankArry.add(rs_h);
+				}
+			}
 
-		ListView dataList = (ListView) myInflatedView.findViewById(android.R.id.list);
-		dataList.setAdapter(adapter);
+			FragA_Adapter adapter = new FragA_Adapter(context, R.layout.fragment_a_layout,
+					rankArry);
+
+			ListView dataList = (ListView) myInflatedView.findViewById(android.R.id.list);
+			dataList.setAdapter(adapter);
 		}
+		else {
+		TextView title = (TextView) myInflatedView.findViewById(R.id.titleA);
+		title.setText(noItems);
+		}
+		
 		myDb.close();
 		return myInflatedView;
 	}
@@ -162,12 +181,22 @@ public class FragmentA extends ListFragment {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
 	}
-	
+
 	public void setText(String _qty, String _rare) {
 		TextView qty = (TextView) getView().findViewById(R.id.qty);
 		TextView rare = (TextView) getView().findViewById(R.id.rare);
 		qty.setText(_qty);
 		rare.setText(_rare);
 	}
-
+	
+	public Rankset fillHeader() {
+		Rankset rankset = new Rankset();
+		rankset.set_name(name_header);
+		rankset.set_low(rank_header);
+		rankset.set_qty(qty_header);
+		rankset.set_prob(prob_header);
+		rankset.set_obtain(obtain_header);
+		rankset.set_header(true);
+		return rankset;
+	}
 }
