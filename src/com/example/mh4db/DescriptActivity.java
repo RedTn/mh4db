@@ -56,15 +56,15 @@ public class DescriptActivity extends ActionBarActivity {
 
 		Log.i("pass", "passedVal = " + Long.toString(passedVal));
 
-		Imgset imgset = myDb.getImgset((int) passedVal);
-		byte[] byteArray = imgset.getImage();
+		Monsterset monsterset = myDb.getMonsterset((int) passedVal);
+		byte[] byteArray = monsterset.getImage();
 		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
-		setTitle(imgset.getName());
+		setTitle(monsterset.getName());
 
 		title = (TextView) findViewById(R.id.titletxt);
 		mainicon = (ImageView) findViewById(R.id.mainicon);
-		title.setText(imgset.getName());
+		title.setText(monsterset.getName());
 		mainicon.setImageBitmap(bm);
 
 		//TODO when phone rotates, always displays weakness

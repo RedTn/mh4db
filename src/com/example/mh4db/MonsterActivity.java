@@ -23,8 +23,8 @@ import android.widget.GridView;
 public class MonsterActivity extends ActionBarActivity {
 
 	DBAdapter myDb;
-	ArrayList<Imgset> imageArry = new ArrayList<Imgset>();
-	ImgsetAdapter adapter;
+	ArrayList<Monsterset> monsterArry = new ArrayList<Monsterset>();
+	MonstersetAdapter adapter;
 	public final static String ID_EXTRA="com.example.mh4db._ID";
 
 	@Override
@@ -39,68 +39,24 @@ public class MonsterActivity extends ActionBarActivity {
 			openDB();
 
 			// Reading all contacts from database
-			List<Imgset> imgsets = myDb.getAllImgsets();
-			for (Imgset is : imgsets) {
+			List<Monsterset> monstersets = myDb.getAllMonstersets();
+			for (Monsterset is : monstersets) {
 				String log = "ID:" + is.getID() + " Name: " + is.getName()
 						+ " ,Image: " + is.getImage();
 
 				// Writing Contacts to log
 				Log.d("Result: ", log);
 				//add contacts data in arrayList
-				imageArry.add(is);
+				monsterArry.add(is);
 
 			}
-			adapter = new ImgsetAdapter(this, R.layout.descript_layout,
-					imageArry);
-			//ListView dataList = (ListView) findViewById(R.id.list);
+			adapter = new MonstersetAdapter(this, R.layout.descript_layout,
+					monsterArry);
+			
 			GridView dataList = (GridView) findViewById(R.id.gridView1);
 			dataList.setAdapter(adapter);
 
 			dataList.setOnItemClickListener(onGridClick);
-			
-			/*
-			EditText search = (EditText) findViewById(R.id.searchMonster);
-			search.addTextChangedListener(new TextWatcher() {
-				
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					
-					imageArry.clear();
-					
-					List<Imgset> imgsets = myDb.getImgsetsSearch(s.toString());
-					for (Imgset is : imgsets) {
-						String log = "ID:" + is.getID() + " Name: " + is.getName()
-								+ " ,Image: " + is.getImage();
-
-						// Writing Contacts to log
-						Log.d("Result: ", log);
-						//add contacts data in arrayList
-						imageArry.add(is);
-
-					}
-					adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.descript_layout,
-							imageArry);
-					//ListView dataList = (ListView) findViewById(R.id.list);
-					GridView dataList = (GridView) findViewById(R.id.gridView1);
-					dataList.setAdapter(adapter);
-					
-				}
-				
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count,
-						int after) {
-					
-					
-				}
-				
-				@Override
-				public void afterTextChanged(Editable s) {
-					
-					
-				}
-			});
-			*/
-			//setupUI(findViewById(R.id.parentmonster));
 		}
 		catch (Exception e)
 		{
@@ -117,9 +73,9 @@ private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickL
 			long id)
 	{	
 		Log.i("listen", "position: " + Integer.toString(position) + " id: " + Long.toString(id));
-		Imgset imgset = imageArry.get((int)id);
+		Monsterset monsterset = monsterArry.get((int)id);
 		Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
-		i.putExtra(ID_EXTRA, (long)imgset.getID());
+		i.putExtra(ID_EXTRA, (long)monsterset.getID());
 		startActivity(i);
 
 	}
@@ -158,21 +114,21 @@ public boolean onCreateOptionsMenu(Menu menu) {
 		
 		@Override
 		public boolean onQueryTextChange(String arg0) {
-			imageArry.clear();
+			monsterArry.clear();
 			
-			List<Imgset> imgsets = myDb.getImgsetsSearch(arg0);
-			for (Imgset is : imgsets) {
+			List<Monsterset> monstersets = myDb.getMonstersetsSearch(arg0);
+			for (Monsterset is : monstersets) {
 				String log = "ID:" + is.getID() + " Name: " + is.getName()
 						+ " ,Image: " + is.getImage();
 
 				// Writing Contacts to log
 				Log.d("Result: ", log);
 				//add contacts data in arrayList
-				imageArry.add(is);
+				monsterArry.add(is);
 
 			}
-			adapter = new ImgsetAdapter(MonsterActivity.this, R.layout.descript_layout,
-					imageArry);
+			adapter = new MonstersetAdapter(MonsterActivity.this, R.layout.descript_layout,
+					monsterArry);
 			//ListView dataList = (ListView) findViewById(R.id.list);
 			GridView dataList = (GridView) findViewById(R.id.gridView1);
 			dataList.setAdapter(adapter);
@@ -193,40 +149,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	}
 	return super.onOptionsItemSelected(item);
 }
-/*
-public static void hideSoftKeyboard(Activity activity) {
-    InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-    inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-}
 
-public void setupUI(View view) {
-
-    //Set up touch listener for non-text box views to hide keyboard.
-    if(!(view instanceof EditText)) {
-
-        view.setOnTouchListener(new OnTouchListener() {
-
-        	@Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftKeyboard(MonsterActivity.this);
-                return true;
-            }
-
-        });
-    }
-
-    //If a layout container, iterate over children and seed recursion.
-    if (view instanceof ViewGroup) {
-
-        for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-
-            View innerView = ((ViewGroup) view).getChildAt(i);
-
-            setupUI(innerView);
-        }
-    }
-}
-*/
 @Override
 protected void onResume() {
 	super.onResume();

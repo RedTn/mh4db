@@ -25,7 +25,7 @@ public class DBAdapter {
 	public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_IMAGE};
 
 	private static final String DATABASE_NAME = "mh.db";	//may be different
-	private static final String DATABASE_TABLE = "image";
+	private static final String DATABASE_TABLE_MONSTER = "monster";
 	private static final String DATABASE_TABLE_WEAK = "weakness";
 	private static final String DATABASE_TABLE_LOW = "lowrank";
 	private static final String DATABASE_TABLE_HIGH = "highrank";
@@ -73,7 +73,7 @@ public class DBAdapter {
 		{
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
-			db.execSQL("DROP TABLE IF EXISTS Imgsets");
+			db.execSQL("DROP TABLE IF EXISTS Monstersets");
 			onCreate(db);
 		}
 	}    
@@ -94,15 +94,15 @@ public class DBAdapter {
 
 
 	//---deletes a particular record---
-	public boolean deleteImgset(long rowId) 
+	public boolean deleteMonsterset(long rowId) 
 	{
-		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+		return db.delete(DATABASE_TABLE_MONSTER, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//---retrieves all the records---
 	public Cursor getAllRecords() 
 	{
-		return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
+		return db.query(DATABASE_TABLE_MONSTER, new String[] {KEY_ROWID, KEY_NAME,
 				KEY_IMAGE}, null, null, null, null, null);
 	}
 
@@ -110,7 +110,7 @@ public class DBAdapter {
 	public Cursor getRecord(long rowId) throws SQLException 
 	{
 		Cursor mCursor =
-				db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
+				db.query(true, DATABASE_TABLE_MONSTER, new String[] {KEY_ROWID,
 						KEY_NAME, KEY_IMAGE}, 
 						KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null) {
@@ -119,26 +119,26 @@ public class DBAdapter {
 		return mCursor;
 	}
 
-	// Getting All Imgsets
-	public List<Imgset> getAllImgsets() {
-		List<Imgset> imgList = new ArrayList<Imgset>();
+	// Getting All Monstersets
+	public List<Monsterset> getAllMonstersets() {
+		List<Monsterset> monsterList = new ArrayList<Monsterset>();
 		// Select All Query
-		String selectQuery = "SELECT * FROM " + DATABASE_TABLE  + " ORDER BY id";
+		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_MONSTER  + " ORDER BY id";
 
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
-				Imgset imgset = new Imgset();
-				imgset.setID(Integer.parseInt(cursor.getString(0)));
-				imgset.setName(cursor.getString(1));
-				imgset.setImage(cursor.getBlob(2));
+				Monsterset monsterset = new Monsterset();
+				monsterset.setID(Integer.parseInt(cursor.getString(0)));
+				monsterset.setName(cursor.getString(1));
+				monsterset.setImage(cursor.getBlob(2));
 				// Adding contact to list
-				imgList.add(imgset);
+				monsterList.add(monsterset);
 			} while (cursor.moveToNext());
 		}
 		// return contact list
-		return imgList;
+		return monsterList;
 
 	}
 
@@ -161,26 +161,26 @@ public class DBAdapter {
 
 	}
 
-	// Searchbar Imgsets
-	public List<Imgset> getImgsetsSearch(String search) {
-		List<Imgset> imgList = new ArrayList<Imgset>();
+	// Searchbar Monstersets
+	public List<Monsterset> getMonstersetsSearch(String search) {
+		List<Monsterset> monsterList = new ArrayList<Monsterset>();
 
-		String selectQuery = "SELECT * FROM " + DATABASE_TABLE + " WHERE name LIKE '" + search + "%'";
+		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_MONSTER + " WHERE name LIKE '" + search + "%'";
 
 		Cursor cursor = db.rawQuery(selectQuery, null);
 
 		if (cursor.moveToFirst()) {
 			do {
-				Imgset imgset = new Imgset();
-				imgset.setID(Integer.parseInt(cursor.getString(0)));
-				imgset.setName(cursor.getString(1));
-				imgset.setImage(cursor.getBlob(2));
+				Monsterset monsterset = new Monsterset();
+				monsterset.setID(Integer.parseInt(cursor.getString(0)));
+				monsterset.setName(cursor.getString(1));
+				monsterset.setImage(cursor.getBlob(2));
 				// Adding contact to list
-				imgList.add(imgset);
+				monsterList.add(monsterset);
 			} while (cursor.moveToNext());
 		}
 		// return contact list
-		return imgList;
+		return monsterList;
 	}
 
 	public List<Itemset> getItemsetsSearch(String search) {
@@ -303,18 +303,18 @@ public class DBAdapter {
 
 	}
 
-	Imgset getImgset(int id) {
+	Monsterset getMonsterset(int id) {
 
-		Cursor cursor = db.query(DATABASE_TABLE, new String[] { KEY_ROWID,
+		Cursor cursor = db.query(DATABASE_TABLE_MONSTER, new String[] { KEY_ROWID,
 				KEY_NAME, KEY_IMAGE }, KEY_ROWID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Imgset imgset = new Imgset(cursor.getInt(0),
+		Monsterset monsterset = new Monsterset(cursor.getInt(0),
 				cursor.getString(1), cursor.getBlob(2));
 
-		return imgset;
+		return monsterset;
 
 	}
 
@@ -379,8 +379,8 @@ public class DBAdapter {
 
 
 	// Getting contacts Count
-	public int getImgsetCount() {
-		String countQuery = "SELECT * FROM " + DATABASE_TABLE;
+	public int getMonstersetCount() {
+		String countQuery = "SELECT * FROM " + DATABASE_TABLE_MONSTER;
 
 		Cursor cursor = db.rawQuery(countQuery, null);
 		cursor.close();

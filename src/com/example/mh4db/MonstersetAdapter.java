@@ -14,11 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ImgsetAdapter extends ArrayAdapter<Imgset>{
+public class MonstersetAdapter extends ArrayAdapter<Monsterset>{
 	Context context;
 	int layoutResourceId;
-	ArrayList<Imgset> data=new ArrayList<Imgset>();
-	public ImgsetAdapter(Context context, int layoutResourceId, ArrayList<Imgset> data) {
+	ArrayList<Monsterset> data=new ArrayList<Monsterset>();
+	public MonstersetAdapter(Context context, int layoutResourceId, ArrayList<Monsterset> data) {
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;
@@ -42,7 +42,7 @@ public class ImgsetAdapter extends ArrayAdapter<Imgset>{
 		{
 			holder = (ImageHolder)row.getTag();
 		}
-		Imgset picture = data.get(position);
+		Monsterset picture = data.get(position);
 		holder.txtTitle.setText(picture ._name);
 		//convert byte to bitmap take from Imgset class
 		byte[] outImage=picture._image;

@@ -1,6 +1,6 @@
 package com.example.mh4db;
 
-public class Imgset {
+public class Monsterset {
 
 	// private variables
 	int _id;
@@ -8,12 +8,12 @@ public class Imgset {
 	byte[] _image;
 
 	// Empty constructor
-	public Imgset() {
+	public Monsterset() {
 
 	}
 
 	// constructor
-	public Imgset(int keyId, String name, byte[] image) {
+	public Monsterset(int keyId, String name, byte[] image) {
 		this._id = keyId;
 		this._name = name;
 		this._image = image;
@@ -21,7 +21,7 @@ public class Imgset {
 	}
 
 	// constructor
-	public Imgset(String name, byte[] image) {
+	public Monsterset(String name, byte[] image) {
 		this._name = name;
 		this._image = image;
 	}

@@ -114,16 +114,16 @@ public class FragmentA extends ListFragment {
 			rankArry.add(fillHeader());
 			if (!ranksets.isEmpty()) {	
 				for (Rankset rs : ranksets) {
-					Imgset imgset = myDb.getImgset(rs.get_mid());
-					rs.set_name(imgset.getName());
+					Monsterset monsterset = myDb.getMonsterset(rs.get_mid());
+					rs.set_name(monsterset.getName());
 					rs.set_low("Low Rank");
 					rankArry.add(rs);
 				}
 			}
 			if (!ranksets_h.isEmpty()) {
 				for (Rankset rs_h : ranksets_h) {
-					Imgset imgset_h = myDb.getImgset(rs_h.get_mid());
-					rs_h.set_name(imgset_h.getName());
+					Monsterset monsterset_h = myDb.getMonsterset(rs_h.get_mid());
+					rs_h.set_name(monsterset_h.getName());
 					rs_h.set_low("High Rank");
 					rankArry.add(rs_h);
 				}
