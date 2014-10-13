@@ -29,5 +29,11 @@
     <string name="frag_qty">Qty</string>
     <string name="sell_header">Sell</string>
     <string name="buy_header">Buy</string>
+    <string-array name="mainmenu">
+        <item >Monsters</item>
+        <item >Items</item>
+    </string-array>
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
 
 </resources>
