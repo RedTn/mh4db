@@ -14,9 +14,9 @@
 
     <TextView
         android:id="@+id/text_drawer"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:gravity="center" />
 
 </LinearLayout>

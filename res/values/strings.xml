@@ -30,6 +30,7 @@
     <string name="sell_header">Sell</string>
     <string name="buy_header">Buy</string>
     <string-array name="mainmenu">
+        <item >Home</item>
         <item >Monsters</item>
         <item >Items</item>
     </string-array>
