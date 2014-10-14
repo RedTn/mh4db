@@ -5,16 +5,19 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +29,8 @@ import android.widget.TextView;
  * method to create an instance of this fragment.
  * 
  */
-public class FragmentA extends ListFragment {
+
+public class FragmentA extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -44,6 +48,8 @@ public class FragmentA extends ListFragment {
 	// TODO: Rename and change types of parameters
 	private String mParam1;
 	private String mParam2;
+	ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
+	public final static String ID_EXTRA="com.example.mh4db._ID";
 
 	private OnFragmentInteractionListener mListener;
 
@@ -106,8 +112,6 @@ public class FragmentA extends ListFragment {
 		buy.setText(itemset.get_buy());
 		imagepic.setImageBitmap(bm);
 
-		ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
-
 		List<Rankset> ranksets = myDb.getAllRanksetsByIid(itemset.get_id(), tableLow);
 		List<Rankset> ranksets_h = myDb.getAllRanksetsByIid(itemset.get_id(), tableHigh);
 		if ((!ranksets.isEmpty()) || (!ranksets_h.isEmpty())) {
@@ -134,6 +138,8 @@ public class FragmentA extends ListFragment {
 
 			ListView dataList = (ListView) myInflatedView.findViewById(android.R.id.list);
 			dataList.setAdapter(adapter);
+			
+			dataList.setOnItemClickListener(onListClick);
 		}
 		else {
 		TextView title = (TextView) myInflatedView.findViewById(R.id.titleA);
@@ -143,6 +149,24 @@ public class FragmentA extends ListFragment {
 		myDb.close();
 		return myInflatedView;
 	}
+	
+	
+	private AdapterView.OnItemClickListener onListClick=new AdapterView.OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, 
+				View view, int position,
+				long id)
+		{	
+			Log.i("listen", "position: " + Integer.toString(position) + " id: " + Long.toString(id));
+			Context context = getActivity().getApplicationContext();
+			Rankset rankset = rankArry.get((int)id);
+			Intent i = new Intent(context, DescriptActivity.class);
+			i.putExtra(ID_EXTRA, (long)rankset.get_mid());
+			startActivity(i);
+			getActivity().finish();
+		}
+	};
+	
 
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {

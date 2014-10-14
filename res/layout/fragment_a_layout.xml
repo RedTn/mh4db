@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-
+    <!-- 
+     android:descendantFocusability="blocksDescendants" >
+  -->
+ 
     <TextView
         android:id="@+id/iname"
         android:layout_width="0dp"

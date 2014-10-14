@@ -3,6 +3,7 @@ package com.example.mh4db;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -24,6 +26,7 @@ public class DescriptActivity extends ActionBarActivity {
 	private ImageView mainicon;
 	ArrayList<Weakset> weakArry = new ArrayList<Weakset>();
 	ArrayList<Rankset> rankArry = new ArrayList<Rankset>();
+	public final static String ID_EXTRA="com.example.mh4db._ID";
 
 	private static final String location_header = "Part";
 	private static final String Cut_header = "Cut";
@@ -187,6 +190,20 @@ public class DescriptActivity extends ActionBarActivity {
 
 		ListView dataList = (ListView) findViewById(R.id.weaklist);
 		dataList.setAdapter(adapter);
+		
+		dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Rankset rankset = rankArry.get(position);
+				Intent i = new Intent(DescriptActivity.this, ItemDetailActivity.class);
+				i.putExtra(ID_EXTRA, (long)rankset.get_iid());
+				startActivity(i);
+				finish();
+			}
+			
+		});
 	}
 
 	private void displayHigh() {
@@ -207,5 +224,19 @@ public class DescriptActivity extends ActionBarActivity {
 
 		ListView dataList = (ListView) findViewById(R.id.weaklist);
 		dataList.setAdapter(adapter);
+		
+		dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Rankset rankset = rankArry.get(position);
+				Intent i = new Intent(DescriptActivity.this, ItemDetailActivity.class);
+				i.putExtra(ID_EXTRA, (long)rankset.get_iid());
+				startActivity(i);
+				finish();
+			}
+			
+		});
 	}
 }

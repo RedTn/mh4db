@@ -13,7 +13,8 @@ public class Comboset {
 	byte[] _imagea;
 	byte[] _imageb;
 	boolean _header;
-
+	boolean _make;
+	
 	// Empty constructor
 	public Comboset() {
 
@@ -28,6 +29,13 @@ public class Comboset {
 		this._qty = _qty;
 	}
 
+	public boolean is_make() {
+		return _make;
+	}
+
+	public void set_make(boolean _make) {
+		this._make = _make;
+	}
 	public boolean is_header() {
 		return _header;
 	}

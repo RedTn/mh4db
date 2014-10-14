@@ -5,12 +5,15 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +31,9 @@ public class FragmentB extends Fragment {
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
 	private static final int whitebox_id = -2;
+	public final static String ID_EXTRA="com.example.mh4db._ID";
+	ArrayList<Comboset> comboArry = new ArrayList<Comboset>();
+	ArrayList<Comboset> comboArry2 = new ArrayList<Comboset>();
 
 	// TODO: Rename and change types of parameters
 	private String mParam1;
@@ -84,8 +90,6 @@ public class FragmentB extends Fragment {
 		TextView makes = (TextView) myInflatedView.findViewById(R.id.makes);
 		TextView tomake = (TextView) myInflatedView.findViewById(R.id.tomake);
 		
-		ArrayList<Comboset> comboArry = new ArrayList<Comboset>();
-		
 		List<Comboset> combosets = myDb.getCombosetByIid(itemset.get_id());
 		if(!combosets.isEmpty()){
 			comboArry.add(fillHeader(myDb.getExtra(whitebox_id)));
@@ -98,6 +102,7 @@ public class FragmentB extends Fragment {
 				Itemset itemset3 = myDb.getItemset(cs.get_result());
 				cs.set_nameb(itemset3.get_name());
 				cs.set_imageb(itemset3.get_image());
+				cs.set_make(true);
 				comboArry.add(cs);
 				
 			}
@@ -112,7 +117,7 @@ public class FragmentB extends Fragment {
 		ListView dataList = (ListView) myInflatedView.findViewById(R.id.makelist);
 		dataList.setAdapter(adapter);
 		
-		ArrayList<Comboset> comboArry2 = new ArrayList<Comboset>();
+		
 		combosets.clear();
 		
 		combosets = myDb.getCombosetByResult(itemset.get_id());
@@ -126,6 +131,7 @@ public class FragmentB extends Fragment {
 				Itemset itemset3 = myDb.getItemset(cs.get_iid2());
 				cs.set_nameb(itemset3.get_name());
 				cs.set_imageb(itemset3.get_image());
+				cs.set_make(false);
 				comboArry2.add(cs);
 				
 			}
@@ -139,8 +145,10 @@ public class FragmentB extends Fragment {
 
 		ListView dataList2 = (ListView) myInflatedView.findViewById(R.id.tomakelist);
 		dataList2.setAdapter(adapter2);
+		
 		return myInflatedView;
 	}
+	
 
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
