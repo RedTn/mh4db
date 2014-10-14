@@ -1,7 +1,10 @@
 package com.example.mh4db;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -10,12 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class MainActivity extends ActionBarActivity implements OnItemClickListener {
-
-	private DBHelper dbHelper = null;
+public class MapActivity extends ActionBarActivity implements OnItemClickListener {
+	DBAdapter myDb;
+	public final static String ID_EXTRA="com.example.mh4db._ID";
 	private DrawerLayout drawerLayout;
 	private ListView listView;
 	private ActionBarDrawerToggle drawerListener;
@@ -24,20 +28,53 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		setTitle("MH4 Database");
+		setContentView(R.layout.activity_map);
 
-		//create our database Helper
-		dbHelper = new DBHelper(this);
-		//we call the create right after initializing the helper, just in case
-		//they have never run the app before
-		dbHelper.createDatabase();
+		myDb = new DBAdapter(this);
+		myDb.open();
+		
+		fillDrawer();
 
+		Mapset mapset = myDb.getMapset(1);
+		byte[] byteArray = mapset.get_image();
+		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+		ImageView map = (ImageView) findViewById(R.id.image_map);
+		map.setImageBitmap(bm);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.map, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(drawerListener.onOptionsItemSelected(item))
+		{
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		drawerListener.syncState();
+	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		drawerListener.onConfigurationChanged(newConfig);
+	}
+
+	private void fillDrawer() {
 		drawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-		//mainmenu = getResources().getStringArray(R.array.mainmenu);
+
 		listView = (ListView) findViewById(R.id.drawerList);
 		myAdapter = new DrawerAdapter(this);
-		//listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mainmenu));
 		listView.setAdapter(myAdapter);
 		listView.setOnItemClickListener(this);
 
@@ -60,38 +97,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-
-
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		drawerListener.syncState();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if(drawerListener.onOptionsItemSelected(item))
-		{
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		drawerListener.onConfigurationChanged(newConfig);
-	}
-
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -125,6 +130,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 		drawerLayout.closeDrawers();
 		finish();
-	}
 
+	}
 }

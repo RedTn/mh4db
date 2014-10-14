@@ -32,6 +32,7 @@ public class DBAdapter {
 	private static final String DATABASE_TABLE_ITEM = "item";
 	private static final String DATABASE_TABLE_EXTRA = "extra";
 	private static final String DATABASE_TABLE_COMBO = "combo";
+	private static final String DATABASE_TABLE_MAP = "map";
 	private static final int DATABASE_VERSION = 3;
 
 	//Shared with DescriptAtivity
@@ -386,6 +387,22 @@ public class DBAdapter {
 		cursor.close();
 
 		return cursor.getCount();
+	}
+	
+	public Mapset getMapset(int mapid) {
+		String selectQuery = "SELECT * FROM " + DATABASE_TABLE_MAP + " WHERE mapid = ?";
+		String[] args = {String.valueOf(mapid)};
+		Mapset mapset = new Mapset();
+		
+		Cursor cursor = db.rawQuery(selectQuery, args);
+		if (cursor.moveToFirst()) {
+			mapset.set_mapid(cursor.getInt(0));
+			mapset.set_image(cursor.getBlob(1));
+			mapset.set_name(cursor.getString(2));
+		}
+
+
+		return mapset;
 	}
 
 }

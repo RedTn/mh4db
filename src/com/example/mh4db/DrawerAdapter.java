@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class DrawerAdapter extends BaseAdapter {
 		private Context context;
 		String[] mainmenu;
-		int[] images = {R.drawable.ic_home,R.drawable.ic_monster, R.drawable.ic_item};
+		int[] images = {R.drawable.ic_home,R.drawable.ic_monster, R.drawable.ic_item, R.drawable.ic_map};
 		public DrawerAdapter(Context context) {
 			this.context = context;
 			mainmenu=context.getResources().getStringArray(R.array.mainmenu);

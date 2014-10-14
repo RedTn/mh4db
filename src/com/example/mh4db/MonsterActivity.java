@@ -192,6 +192,11 @@ public class MonsterActivity extends ActionBarActivity implements OnItemClickLis
 			startActivity(intent);
 			break;
 		}
+		case 3: {
+			Intent intent = new Intent(this, MapActivity.class);
+			startActivity(intent);
+			break;
+		}
 		default: {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
