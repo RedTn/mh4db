@@ -1,6 +1,5 @@
 package com.example.mh4db;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -13,9 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.polites.android.GestureImageView;
 
 public class MapActivity extends ActionBarActivity implements OnItemClickListener {
 	DBAdapter myDb;
@@ -38,9 +39,12 @@ public class MapActivity extends ActionBarActivity implements OnItemClickListene
 		Mapset mapset = myDb.getMapset(1);
 		byte[] byteArray = mapset.get_image();
 		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-
-		ImageView map = (ImageView) findViewById(R.id.image_map);
-		map.setImageBitmap(bm);
+		
+	    GestureImageView view = (GestureImageView) findViewById(R.id.image_map);
+        view.setImageBitmap(bm);
+      
+        Toast.makeText(getApplicationContext(), "Map is zoomable",
+        		   Toast.LENGTH_LONG).show();
 	}
 
 	@Override
