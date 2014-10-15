@@ -36,9 +36,31 @@
         <item>Items</item>
         <item>Map</item>
     </string-array>
+    <string-array name="maps">
+        <item>Ruins Field</item>
+        <item>Underground Cave</item>
+        <item>Primeval Forest</item>
+        <item>Frozen Sea</item>
+        <item>Underground Volcano</item>
+        <item>Heavenly Mountain</item>
+        <item>Shine Area</item>
+        <item>Great Desert</item>
+        <item>Lava Island</item>
+        <item>Peak Mountain</item>
+        <item>Tower Peak</item>
+        <item>Castle Schrade</item>
+        <item>Arena</item>
+        <item>3D Area</item>
+        <item>Unknown G.Forest</item>
+    </string-array>
 
     <string name="drawer_open">Open Navigation Drawer</string>
     <string name="drawer_close">Close Navigation Drawer</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_map_activity2">MapActivity2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_about_map">Details</string>
 
 </resources>

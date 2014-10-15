@@ -62,6 +62,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MainActivity" />
         </activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map_activity2"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mh4db.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

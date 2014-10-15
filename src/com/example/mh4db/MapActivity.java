@@ -1,5 +1,8 @@
 package com.example.mh4db;
 
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -8,43 +11,81 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.polites.android.GestureImageView;
 
-public class MapActivity extends ActionBarActivity implements OnItemClickListener {
-	DBAdapter myDb;
-	public final static String ID_EXTRA="com.example.mh4db._ID";
+public class MapActivity extends ActionBarActivity implements
+		ActionBar.OnNavigationListener, OnItemClickListener {
+
+	/**
+	 * The serialization (saved instance state) Bundle key representing the
+	 * current dropdown position.
+	 */
+	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private DrawerLayout drawerLayout;
 	private ListView listView;
 	private ActionBarDrawerToggle drawerListener;
 	private DrawerAdapter myAdapter;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-
-		myDb = new DBAdapter(this);
-		myDb.open();
 		
 		fillDrawer();
 
-		Mapset mapset = myDb.getMapset(1);
-		byte[] byteArray = mapset.get_image();
-		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+		// Set up the action bar to show a dropdown list.
+		final ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		// Show the Up button in the action bar.
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		String[] mapArray;
+		mapArray = getResources().getStringArray(R.array.maps);  
+		// Set up the dropdown list navigation in the action bar.
+		actionBar.setListNavigationCallbacks(
+				
+		// Specify a SpinnerAdapter to populate the dropdown list.
+				new ArrayAdapter<String>(actionBar.getThemedContext(),
+						android.R.layout.simple_list_item_1,
+						android.R.id.text1, mapArray), this);
 		
-	    GestureImageView view = (GestureImageView) findViewById(R.id.image_map);
-        view.setImageBitmap(bm);
-      
-        Toast.makeText(getApplicationContext(), "Map is zoomable",
-        		   Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Map is zoomable",
+      		   Toast.LENGTH_LONG).show();
+		
+		
+		Toast details = Toast.makeText(this, "Click above for details",
+	      		   Toast.LENGTH_SHORT);
+		details.setGravity(Gravity.TOP|Gravity.RIGHT, 0, 100);
+		details.show();
+		
+	}
+
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		// Restore the previously serialized current dropdown position.
+		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
+			getActionBar().setSelectedNavigationItem(
+					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// Serialize the current dropdown position.
+		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
+				.getSelectedNavigationIndex());
 	}
 
 	@Override
@@ -60,7 +101,75 @@ public class MapActivity extends ActionBarActivity implements OnItemClickListene
 		{
 			return true;
 		}
+		if(item.getItemId() == R.id.action_about){
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(int position, long id) {
+		// When the given dropdown item is selected, show its contents in the
+		// container view.
+		getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.container,
+						PlaceholderFragment.newInstance(position + 1)).commit();
+		return true;
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		private static final String ARG_SECTION_NUMBER = "section_number";
+
+		/**
+		 * Returns a new instance of this fragment for the given section number.
+		 */
+		public static PlaceholderFragment newInstance(int sectionNumber) {
+			PlaceholderFragment fragment = new PlaceholderFragment();
+			Bundle args = new Bundle();
+			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+			fragment.setArguments(args);
+			return fragment;
+		}
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_map,
+					container, false);
+		
+			Context context = getActivity().getApplicationContext();
+			DBAdapter myDb = new DBAdapter(context);
+			myDb.open();
+			
+			int position = getArguments().getInt(ARG_SECTION_NUMBER);
+			 
+			Mapset mapset = myDb.getMapset(position);
+			if(mapset != null) {
+			
+			GestureImageView mapview = (GestureImageView) rootView.findViewById(R.id.image_map2);
+			byte[] byteArray = mapset.get_image();
+			Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+			mapview.setImageBitmap(bm);
+			}
+			else {
+				Toast.makeText(context, "Whoops, I haven't added that map yet",
+		          		   Toast.LENGTH_SHORT).show();
+			}
+			
+			myDb.close();
+			return rootView;
+		}
 	}
 
 	@Override
@@ -136,4 +245,5 @@ public class MapActivity extends ActionBarActivity implements OnItemClickListene
 		finish();
 
 	}
+
 }

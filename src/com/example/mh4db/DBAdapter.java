@@ -400,6 +400,9 @@ public class DBAdapter {
 			mapset.set_image(cursor.getBlob(1));
 			mapset.set_name(cursor.getString(2));
 		}
+		else {
+			mapset = null;
+		}
 
 
 		return mapset;
