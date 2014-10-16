@@ -33,6 +33,8 @@ public class DBAdapter {
 	private static final String DATABASE_TABLE_EXTRA = "extra";
 	private static final String DATABASE_TABLE_COMBO = "combo";
 	private static final String DATABASE_TABLE_MAP = "map";
+	private static final String DATABASE_TABLE_LOWMAP = "lowrank_map";
+	private static final String DATABASE_TABLE_HIGHMAP = "highrank_map";
 	private static final int DATABASE_VERSION = 3;
 
 	//Shared with DescriptAtivity
@@ -406,6 +408,26 @@ public class DBAdapter {
 
 
 		return mapset;
+	}
+	
+	public List<MapRankset> getAllRankMapsetByLid(int lid, int rank) {
+		String selectQuery = null;
+		if(rank == 1)selectQuery = "SELECT * FROM " + DATABASE_TABLE_LOWMAP + " WHERE lid = ?";
+		else if(rank == 2)selectQuery = "SELECT * FROM " + DATABASE_TABLE_HIGHMAP + " WHERE lid = ?";
+		String[] args = {String.valueOf(lid)};
+		List<MapRankset> mapList = new ArrayList<MapRankset>();
+		
+		Cursor cursor = db.rawQuery(selectQuery, args);
+		if (cursor.moveToFirst()) {
+			do {
+				MapRankset maprankset = new MapRankset(cursor.getInt(0), 
+						cursor.getInt(1), cursor.getInt(2), cursor.getString(3));
+				mapList.add(maprankset);
+			} while (cursor.moveToNext());
+		}
+
+
+		return mapList;
 	}
 
 }

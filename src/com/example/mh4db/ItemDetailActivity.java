@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 
 public class ItemDetailActivity extends FragmentActivity implements FragmentA.OnFragmentInteractionListener,FragmentB.OnFragmentInteractionListener,FragmentC.OnFragmentInteractionListener,TabListener {
-	long passedVal;
+	int passedVal;
 	DBAdapter myDb;
 	ActionBar actionBar;
 	ViewPager viewPager;
@@ -34,8 +34,8 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		myDb.open();
 		
 
-		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
-		Log.i("pass", "passedVal = " + Long.toString(passedVal));
+		passedVal = getIntent().getIntExtra(MonsterActivity.ID_EXTRA, -1);
+		Log.i("pass", "passedVal = " + Integer.toString(passedVal));
 		
 		adapter = new MyAdapter(getSupportFragmentManager());
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -79,12 +79,12 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		actionBar.addTab(tab3);
 		
 		
-		Itemset itemset = myDb.getItemset((int) passedVal);
+		Itemset itemset = myDb.getItemset(passedVal);
 
 		setTitle(itemset.get_name());
 		myDb.close();
 		bundle = new Bundle();
-		bundle.putInt("passed", (int) passedVal);
+		bundle.putInt("passed", passedVal);
 		
 	}
 	

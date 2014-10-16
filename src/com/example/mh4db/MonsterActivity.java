@@ -86,7 +86,7 @@ public class MonsterActivity extends ActionBarActivity implements OnItemClickLis
 			Log.i("listen", "position: " + Integer.toString(position) + " id: " + Long.toString(id));
 			Monsterset monsterset = monsterArry.get((int)id);
 			Intent i = new Intent(MonsterActivity.this, DescriptActivity.class);
-			i.putExtra(ID_EXTRA, (long)monsterset.getID());
+			i.putExtra(ID_EXTRA, monsterset.getID());
 			startActivity(i);
 
 		}

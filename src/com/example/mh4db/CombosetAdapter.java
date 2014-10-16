@@ -82,8 +82,8 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context, ItemDetailActivity.class);
-				if(cs ._make)i.putExtra(ID_EXTRA, (long)cs ._iid2);
-				else i.putExtra(ID_EXTRA, (long)cs ._iid);
+				if(cs ._make)i.putExtra(ID_EXTRA, cs ._iid2);
+				else i.putExtra(ID_EXTRA, cs ._iid);
 				// TODO: Find better way, be careful here
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				//
@@ -96,8 +96,8 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context, ItemDetailActivity.class);
-				if (cs ._make) i.putExtra(ID_EXTRA, (long)cs ._result);
-				else i.putExtra(ID_EXTRA, (long)cs ._iid2);
+				if (cs ._make) i.putExtra(ID_EXTRA, cs ._result);
+				else i.putExtra(ID_EXTRA, cs ._iid2);
 				// TODO: Find better way, be careful here
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				//

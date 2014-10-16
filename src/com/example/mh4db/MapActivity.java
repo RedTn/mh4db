@@ -37,7 +37,9 @@ public class MapActivity extends ActionBarActivity implements
 	private ListView listView;
 	private ActionBarDrawerToggle drawerListener;
 	private DrawerAdapter myAdapter;
-	
+	public final static String ID_EXTRA="com.example.mh4db._ID";
+	private int curpos = 1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +63,8 @@ public class MapActivity extends ActionBarActivity implements
 						android.R.layout.simple_list_item_1,
 						android.R.id.text1, mapArray), this);
 		
+		/*
+		 * TODO: make this display only once ever
 		Toast.makeText(this, "Map is zoomable",
       		   Toast.LENGTH_LONG).show();
 		
@@ -70,8 +74,19 @@ public class MapActivity extends ActionBarActivity implements
 		details.setGravity(Gravity.TOP|Gravity.RIGHT, 0, 100);
 		details.show();
 		
+		*/
+		
+		
 	}
 
+	public int getCurpos() {
+		return curpos;
+	}
+
+	public void setCurpos(int curpos) {
+		this.curpos = curpos;
+	}
+	
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current dropdown position.
@@ -102,7 +117,9 @@ public class MapActivity extends ActionBarActivity implements
 			return true;
 		}
 		if(item.getItemId() == R.id.action_about){
-			return true;
+			Intent i = new Intent(this, MapDetailActivity.class);
+			i.putExtra(ID_EXTRA, getCurpos());
+			startActivity(i);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -115,6 +132,7 @@ public class MapActivity extends ActionBarActivity implements
 				.beginTransaction()
 				.replace(R.id.container,
 						PlaceholderFragment.newInstance(position + 1)).commit();
+		setCurpos(position+1);
 		return true;
 	}
 

@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class DescriptActivity extends ActionBarActivity {
 
 	DBAdapter myDb;
-	long passedVal;
+	int passedVal;
 	private TextView title = null;
 	private ImageView mainicon;
 	ArrayList<Weakset> weakArry = new ArrayList<Weakset>();
@@ -55,11 +55,11 @@ public class DescriptActivity extends ActionBarActivity {
 		myDb = new DBAdapter(this);
 		myDb.open();
 
-		passedVal = getIntent().getLongExtra(MonsterActivity.ID_EXTRA, -1);
+		passedVal = getIntent().getIntExtra(MonsterActivity.ID_EXTRA, -1);
 
-		Log.i("pass", "passedVal = " + Long.toString(passedVal));
+		//Log.i("pass", "passedVal = " + Long.toString(passedVal));
 
-		Monsterset monsterset = myDb.getMonsterset((int) passedVal);
+		Monsterset monsterset = myDb.getMonsterset(passedVal);
 		byte[] byteArray = monsterset.getImage();
 		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
@@ -160,7 +160,7 @@ public class DescriptActivity extends ActionBarActivity {
 
 		fillHeaderWeak();
 
-		List<Weakset> weaksets = myDb.getAllWeaksets((int)passedVal);
+		List<Weakset> weaksets = myDb.getAllWeaksets(passedVal);
 		for (Weakset ws : weaksets) {
 			weakArry.add(ws);
 		}
@@ -177,7 +177,7 @@ public class DescriptActivity extends ActionBarActivity {
 
 		fillHeaderRank();
 
-		List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableLow);
+		List<Rankset> ranksets = myDb.getAllRanksets(passedVal, tableLow);
 		for (Rankset rs : ranksets) {
 			Itemset itemset = myDb.getItemset(rs.get_iid());
 			rs.set_image(itemset.get_image());
@@ -198,7 +198,7 @@ public class DescriptActivity extends ActionBarActivity {
 					int position, long id) {
 				Rankset rankset = rankArry.get(position);
 				Intent i = new Intent(DescriptActivity.this, ItemDetailActivity.class);
-				i.putExtra(ID_EXTRA, (long)rankset.get_iid());
+				i.putExtra(ID_EXTRA, rankset.get_iid());
 				startActivity(i);
 				finish();
 			}
@@ -211,7 +211,7 @@ public class DescriptActivity extends ActionBarActivity {
 
 		fillHeaderRank();
 
-		List<Rankset> ranksets = myDb.getAllRanksets((int)passedVal, tableHigh);
+		List<Rankset> ranksets = myDb.getAllRanksets(passedVal, tableHigh);
 		for (Rankset rs : ranksets) {
 			Itemset itemset = myDb.getItemset(rs.get_iid());
 			rs.set_image(itemset.get_image());
@@ -232,7 +232,7 @@ public class DescriptActivity extends ActionBarActivity {
 					int position, long id) {
 				Rankset rankset = rankArry.get(position);
 				Intent i = new Intent(DescriptActivity.this, ItemDetailActivity.class);
-				i.putExtra(ID_EXTRA, (long)rankset.get_iid());
+				i.putExtra(ID_EXTRA, rankset.get_iid());
 				startActivity(i);
 				finish();
 			}

@@ -161,7 +161,7 @@ public class FragmentA extends Fragment {
 			Context context = getActivity().getApplicationContext();
 			Rankset rankset = rankArry.get((int)id);
 			Intent i = new Intent(context, DescriptActivity.class);
-			i.putExtra(ID_EXTRA, (long)rankset.get_mid());
+			i.putExtra(ID_EXTRA, rankset.get_mid());
 			startActivity(i);
 			getActivity().finish();
 		}

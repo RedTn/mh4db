@@ -113,7 +113,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			break;
 		}
 		case 3: {
-			//TODO change
 			Intent intent = new Intent(this, MapActivity.class);
 			startActivity(intent);
 			break;

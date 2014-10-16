@@ -62,5 +62,9 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="action_about_map">Details</string>
+    <string name="title_activity_map_detail">MapDetailActivity</string>
+    <string name="type_header">Type</string>
+     <string name="low_map_header">Low Rank</string>
+     <string name="high_map_header">High Rank</string>
 
 </resources>

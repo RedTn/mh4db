@@ -68,7 +68,7 @@ public class ItemActivity extends ActionBarActivity implements OnItemClickListen
 		{	
 			Itemset itemset = itemArry.get((int)id);
 			Intent i = new Intent(ItemActivity.this, ItemDetailActivity.class);
-			i.putExtra(ID_EXTRA, (long)itemset.get_id());
+			i.putExtra(ID_EXTRA, itemset.get_id());
 			startActivity(i);
 
 		}
