@@ -213,24 +213,23 @@ public class DBAdapter {
 		// Select All Query
 
 		Cursor cursor = db.query(DATABASE_TABLE_WEAK, new String[] { "id",
-				"bid", "location", "cut", "impact", "bullet", "fire", "water", "thunder", "ice", "dragon", "stun" }, "id" + "=?",
+				 "location", "cut", "impact", "bullet", "fire", "water", "thunder", "ice", "dragon", "stun" }, "id" + "=?",
 				new String[] { String.valueOf(id) }, null, null, "id", null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
 				Weakset weakset = new Weakset();
 				weakset.set_id(cursor.getInt(0));
-				weakset.set_bid(cursor.getInt(1));
-				weakset.set_location(cursor.getString(2));
-				weakset.set_cut(cursor.getString(3));
-				weakset.set_impact(cursor.getString(4));
-				weakset.set_bullet(cursor.getString(5));
-				weakset.set_fire(cursor.getString(6));
-				weakset.set_water(cursor.getString(7));
-				weakset.set_thunder(cursor.getString(8));
-				weakset.set_ice(cursor.getString(9));
-				weakset.set_dragon(cursor.getString(10));
-				weakset.set_stun(cursor.getString(11));
+				weakset.set_location(cursor.getString(1));
+				weakset.set_cut(cursor.getString(2));
+				weakset.set_impact(cursor.getString(3));
+				weakset.set_bullet(cursor.getString(4));
+				weakset.set_fire(cursor.getString(5));
+				weakset.set_water(cursor.getString(6));
+				weakset.set_thunder(cursor.getString(7));
+				weakset.set_ice(cursor.getString(8));
+				weakset.set_dragon(cursor.getString(9));
+				weakset.set_stun(cursor.getString(10));
 				// Adding contact to list
 				weakList.add(weakset);
 			} while (cursor.moveToNext());
