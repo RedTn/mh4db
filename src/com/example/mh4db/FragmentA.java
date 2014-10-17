@@ -96,7 +96,7 @@ public class FragmentA extends Fragment {
 
 		int passedVal = getArguments().getInt("passed");
 
-		Itemset itemset = myDb.getItemset((int) passedVal);
+		Itemset itemset = myDb.getItemset(passedVal);
 		byte[] byteArray = itemset.get_image();
 		Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 

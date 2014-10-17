@@ -429,5 +429,25 @@ public class DBAdapter {
 
 		return mapList;
 	}
+	
+	public List<MapRankset> getAllRankMapsetByIid(int iid, int rank) {
+		String selectQuery = null;
+		if(rank == 1)selectQuery = "SELECT * FROM " + DATABASE_TABLE_LOWMAP + " WHERE iid = ?";
+		else if(rank == 2)selectQuery = "SELECT * FROM " + DATABASE_TABLE_HIGHMAP + " WHERE iid = ?";
+		String[] args = {String.valueOf(iid)};
+		List<MapRankset> mapList = new ArrayList<MapRankset>();
+		
+		Cursor cursor = db.rawQuery(selectQuery, args);
+		if (cursor.moveToFirst()) {
+			do {
+				MapRankset maprankset = new MapRankset(cursor.getInt(0), 
+						cursor.getInt(1), cursor.getInt(2), cursor.getString(3));
+				mapList.add(maprankset);
+			} while (cursor.moveToNext());
+		}
+
+
+		return mapList;
+	}
 
 }

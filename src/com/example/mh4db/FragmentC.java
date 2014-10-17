@@ -1,12 +1,18 @@
 package com.example.mh4db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -20,6 +26,9 @@ public class FragmentC extends Fragment {
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
+	private static final int whitebox_id = -2;
+	public final static String ID_EXTRA="com.example.mh4db._ID";
+	ArrayList<MapRankset> mapArry = new ArrayList<MapRankset>();
 
 	// TODO: Rename and change types of parameters
 	private String mParam1;
@@ -64,7 +73,54 @@ public class FragmentC extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_c, container, false);
+		// Inflate the layout for this fragment
+				Context context = getActivity().getApplicationContext();
+				DBAdapter myDb = new DBAdapter(context);
+				myDb.open();
+
+				int passedVal = getArguments().getInt("passed");
+				
+				Itemset itemset = myDb.getItemset(passedVal);
+				
+				View myInflatedView = inflater.inflate(R.layout.fragment_c, container, false);
+				TextView location = (TextView) myInflatedView.findViewById(R.id.location);
+				
+				List<MapRankset> mapsets = myDb.getAllRankMapsetByIid(passedVal, 1);
+				
+				fillHeader();
+				
+				if(!mapsets.isEmpty()){
+					//mapArry.add(fillHeader(myDb.getExtra(whitebox_id)));
+					for(MapRankset ms: mapsets) {
+						Mapset mapset = new Mapset();
+						ms.set_location(myDb.getMapset(ms.get_mapid()).get_name());
+						ms.set_lvl("LowRank");
+						switch(ms.get_tid()) {
+						case 0: ms.set_typeimage(getResources().getDrawable(R.drawable.ic_gather));
+						break;
+						case 1: ms.set_typeimage(getResources().getDrawable(R.drawable.ic_fish));
+						break;
+						case 2: ms.set_typeimage(getResources().getDrawable(R.drawable.ic_bug));
+						break;
+						case 3: ms.set_typeimage(getResources().getDrawable(R.drawable.ic_mine));
+						break;
+						default: ms.set_typeimage(getResources().getDrawable(R.drawable.ic_gather));
+						break;
+						}
+						mapArry.add(ms);
+					}
+				}
+				else {
+					location.setText("This item is not located on a map");
+				}
+				
+				LocationAdapter adapter = new LocationAdapter(context, R.layout.fragment_c_layout,
+						mapArry);
+
+				ListView dataList = (ListView) myInflatedView.findViewById(R.id.locationlist);
+				dataList.setAdapter(adapter);
+				
+		return myInflatedView;
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
@@ -103,6 +159,15 @@ public class FragmentC extends Fragment {
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
+	}
+	
+	private void fillHeader() {
+		MapRankset mapset = new MapRankset();
+		mapset.set_lvl("Lv.");
+		mapset.set_area("Area");
+		mapset.set_location("Location");
+		mapset.set_header(true);
+		mapArry.add(mapset);
 	}
 
 }

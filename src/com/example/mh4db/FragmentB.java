@@ -84,7 +84,7 @@ public class FragmentB extends Fragment {
 
 		int passedVal = getArguments().getInt("passed");
 		
-		Itemset itemset = myDb.getItemset((int) passedVal);
+		Itemset itemset = myDb.getItemset(passedVal);
 		
 		View myInflatedView = inflater.inflate(R.layout.fragment_b, container, false);
 		TextView makes = (TextView) myInflatedView.findViewById(R.id.makes);

@@ -71,7 +71,7 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		tab2.setTabListener(this);
 		
 		ActionBar.Tab tab3= actionBar.newTab();
-		tab3.setText("Tab 3");
+		tab3.setText("Location");
 		tab3.setTabListener(this);
 		
 		actionBar.addTab(tab1);
@@ -108,6 +108,7 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 			}
 			if(arg0 == 2) {
 				fragment = new FragmentC();
+				fragment.setArguments(bundle);
 			}
 			return fragment;
 		}

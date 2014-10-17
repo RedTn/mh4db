@@ -13,6 +13,8 @@ public class MapRankset {
 	byte[] _itemimage;
 	Drawable _typeimage;
 	boolean _header = false;
+	String _location;
+	String _lvl;
 	
 	// Empty constructor
 	public MapRankset() {
@@ -27,6 +29,28 @@ public class MapRankset {
 		this._mapid = _mapid;
 		this._tid = _tid;
 		this._area = _area;
+	}
+
+	public String get_location() {
+		return _location;
+	}
+
+
+
+	public void set_location(String _location) {
+		this._location = _location;
+	}
+
+
+
+	public String get_lvl() {
+		return _lvl;
+	}
+
+
+
+	public void set_lvl(String _lvl) {
+		this._lvl = _lvl;
 	}
 
 
