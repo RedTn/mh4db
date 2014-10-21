@@ -56,6 +56,7 @@ public class RanksetAdapter extends ArrayAdapter<Rankset>{
 		ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
 		Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 		holder.ricon.setImageBitmap(theImage);
+		if(rs.is_header()) holder.ricon.setVisibility(View.INVISIBLE);
 		return row;
 	}
 	

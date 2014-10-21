@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,12 @@ public class WeaksetAdapter extends ArrayAdapter<Weakset>{
 		holder.weakView8.setText(set ._ice);
 		holder.weakView9.setText(set ._dragon);
 		holder.weakView10.setText(set ._stun);
+		
+		holder.weakView5.setTextColor(Color.RED);
+		holder.weakView6.setTextColor(Color.BLUE);
+		holder.weakView7.setTextColor(Color.parseColor("#cccc00"));
+		holder.weakView8.setTextColor(Color.CYAN);
+		holder.weakView9.setTextColor(Color.MAGENTA);
 		
 		return row;
 	}

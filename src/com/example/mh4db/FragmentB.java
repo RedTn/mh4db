@@ -196,7 +196,7 @@ public class FragmentB extends Fragment {
 		comboset.set_namea("Item B");
 		comboset.set_imageb(whitebox);
 		comboset.set_nameb("Result");
-		
+		comboset.set_header(true);
 		return comboset;
 	}
 	
@@ -208,7 +208,7 @@ public class FragmentB extends Fragment {
 		comboset.set_namea("Item A");
 		comboset.set_imageb(whitebox);
 		comboset.set_nameb("Item B");
-		
+		comboset.set_header(true);
 		return comboset;
 	}
 

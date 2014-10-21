@@ -152,6 +152,7 @@ public class DescriptActivity extends ActionBarActivity {
 	private void fillHeaderRank() {
 		Rankset rs = new Rankset(Name_header, Qty_header, Prob_header, Obtain_header);
 		rs.set_image(myDb.getExtra(whitebox_id));
+		rs.set_header(true);
 		rankArry.add(rs);
 	}
 

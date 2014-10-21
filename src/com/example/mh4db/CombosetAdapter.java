@@ -56,27 +56,26 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 		holder.bname_b.setText(cs ._nameb);
 		holder.bprob.setText(cs ._prob);
 		holder.bqty.setText(cs ._qty);
+
+		byte[] outImage=cs._imagea;
+		ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
+		Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+		holder.bitem_a.setImageBitmap(theImage);
+
+		byte[] outImage2=cs._imageb;
+		ByteArrayInputStream imageStream2 = new ByteArrayInputStream(outImage2);
+		Bitmap theImage2 = BitmapFactory.decodeStream(imageStream2);
+		holder.bitem_b.setImageBitmap(theImage2);
+
 		if(cs ._header) {
 			holder.bname_a.setTextColor(Color.parseColor("#000000"));
 			holder.bname_b.setTextColor(Color.parseColor("#000000"));
 			holder.bprob.setTextColor(Color.parseColor("#000000"));
 			holder.bqty.setTextColor(Color.parseColor("#000000"));
+			holder.bitem_a.setVisibility(View.INVISIBLE);
+			holder.bitem_b.setVisibility(View.INVISIBLE);
 		}
-
-		byte[] outImage=cs._imagea;
-		if (outImage != null) {
-			ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
-			Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-			holder.bitem_a.setImageBitmap(theImage);
-		}
-
-		byte[] outImage2=cs._imageb;
-		if (outImage2 != null) {
-			ByteArrayInputStream imageStream2 = new ByteArrayInputStream(outImage2);
-			Bitmap theImage2 = BitmapFactory.decodeStream(imageStream2);
-			holder.bitem_b.setImageBitmap(theImage2);
-		}
-
+		
 		holder.bname_a.setOnClickListener(new OnClickListener() {
 
 			@Override

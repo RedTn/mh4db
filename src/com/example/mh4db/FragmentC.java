@@ -73,26 +73,20 @@ public class FragmentC extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		// Inflate the layout for this fragment
 				Context context = getActivity().getApplicationContext();
 				DBAdapter myDb = new DBAdapter(context);
 				myDb.open();
 
 				int passedVal = getArguments().getInt("passed");
 				
-				Itemset itemset = myDb.getItemset(passedVal);
-				
 				View myInflatedView = inflater.inflate(R.layout.fragment_c, container, false);
 				TextView location = (TextView) myInflatedView.findViewById(R.id.location);
 				
 				List<MapRankset> mapsets = myDb.getAllRankMapsetByIid(passedVal, 1);
 				
-				fillHeader();
-				
 				if(!mapsets.isEmpty()){
-					//mapArry.add(fillHeader(myDb.getExtra(whitebox_id)));
+					fillHeader();
 					for(MapRankset ms: mapsets) {
-						Mapset mapset = new Mapset();
 						ms.set_location(myDb.getMapset(ms.get_mapid()).get_name());
 						ms.set_lvl("LowRank");
 						switch(ms.get_tid()) {
