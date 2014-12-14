@@ -83,20 +83,23 @@ public class FragmentB extends Fragment {
 		myDb.open();
 
 		int passedVal = getArguments().getInt("passed");
-		
+
 		Itemset itemset = myDb.getItemset(passedVal);
-		
+
 		View myInflatedView = inflater.inflate(R.layout.fragment_b, container, false);
 		TextView makes = (TextView) myInflatedView.findViewById(R.id.makes);
 		TextView tomake = (TextView) myInflatedView.findViewById(R.id.tomake);
-		
+
 		List<Comboset> combosets = myDb.getCombosetByIid(itemset.get_id());
 		if(!combosets.isEmpty()){
 			comboArry.add(fillHeader(myDb.getExtra(whitebox_id)));
 			for(Comboset cs: combosets) {
 				Itemset itemset2 = new Itemset();
 				if(cs.get_iid() == passedVal) itemset2 = myDb.getItemset(cs.get_iid2());
-				else itemset2 = myDb.getItemset(cs.get_iid());
+				else {
+					itemset2 = myDb.getItemset(cs.get_iid());
+					cs.set_iid2(cs.get_iid());
+				}
 				cs.set_namea(itemset2.get_name());
 				cs.set_imagea(itemset2.get_image());
 				Itemset itemset3 = myDb.getItemset(cs.get_result());
@@ -104,22 +107,22 @@ public class FragmentB extends Fragment {
 				cs.set_imageb(itemset3.get_image());
 				cs.set_make(true);
 				comboArry.add(cs);
-				
+
 			}
 		}
 		else {
 			makes.setText("This item does not combine into anything");
 		}
-		
+
 		CombosetAdapter adapter = new CombosetAdapter(context, R.layout.fragment_b_make_layout,
 				comboArry);
 
 		ListView dataList = (ListView) myInflatedView.findViewById(R.id.makelist);
 		dataList.setAdapter(adapter);
-		
-		
+
+
 		combosets.clear();
-		
+
 		combosets = myDb.getCombosetByResult(itemset.get_id());
 		if(!combosets.isEmpty()){
 			comboArry2.add(fillHeaderB(myDb.getExtra(whitebox_id)));
@@ -133,22 +136,22 @@ public class FragmentB extends Fragment {
 				cs.set_imageb(itemset3.get_image());
 				cs.set_make(false);
 				comboArry2.add(cs);
-				
+
 			}
 		}
 		else {
 			tomake.setText("This item is not combined from anything");
 		}
-		
+
 		CombosetAdapter adapter2 = new CombosetAdapter(context, R.layout.fragment_b_make_layout,
 				comboArry2);
 
 		ListView dataList2 = (ListView) myInflatedView.findViewById(R.id.tomakelist);
 		dataList2.setAdapter(adapter2);
-		
+
 		return myInflatedView;
 	}
-	
+
 
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
@@ -187,7 +190,7 @@ public class FragmentB extends Fragment {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
 	}
-	
+
 	public Comboset fillHeader(byte[] whitebox) {
 		Comboset comboset = new Comboset();
 		comboset.set_qty("Amt");
@@ -199,7 +202,7 @@ public class FragmentB extends Fragment {
 		comboset.set_header(true);
 		return comboset;
 	}
-	
+
 	public Comboset fillHeaderB(byte[] whitebox) {
 		Comboset comboset = new Comboset();
 		comboset.set_qty("Amt");

@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 
     <application
         android:allowBackup="true"
@@ -62,6 +62,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MainActivity" />
         </activity>
+        <!--
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map_activity2"
@@ -70,6 +71,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MainActivity" />
         </activity>
+        -->
         <activity
             android:name=".MapDetailActivity"
             android:label="@string/title_activity_map_detail"

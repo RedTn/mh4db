@@ -52,17 +52,17 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 			holder = (Comboholder)row.getTag();
 		}
 		cs = data.get(position);
-		holder.bname_a.setText(cs ._namea);
-		holder.bname_b.setText(cs ._nameb);
-		holder.bprob.setText(cs ._prob);
-		holder.bqty.setText(cs ._qty);
+		holder.bname_a.setText(cs.get_namea());
+		holder.bname_b.setText(cs.get_nameb());
+		holder.bprob.setText(cs.get_prob());
+		holder.bqty.setText(cs.get_qty());
 
-		byte[] outImage=cs._imagea;
+		byte[] outImage=cs.get_imagea();
 		ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
 		Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 		holder.bitem_a.setImageBitmap(theImage);
 
-		byte[] outImage2=cs._imageb;
+		byte[] outImage2=cs.get_imageb();
 		ByteArrayInputStream imageStream2 = new ByteArrayInputStream(outImage2);
 		Bitmap theImage2 = BitmapFactory.decodeStream(imageStream2);
 		holder.bitem_b.setImageBitmap(theImage2);
