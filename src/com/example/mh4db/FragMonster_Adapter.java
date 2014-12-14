@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class FragA_Adapter extends ArrayAdapter<Rankset>{
+public class FragMonster_Adapter extends ArrayAdapter<Rankset>{
 	Context context;
 	int layoutResourceId;
 	ArrayList<Rankset> data=new ArrayList<Rankset>();
 
-	public FragA_Adapter(Context context, int layoutResourceId, ArrayList<Rankset> data) {
+	public FragMonster_Adapter(Context context, int layoutResourceId, ArrayList<Rankset> data) {
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;

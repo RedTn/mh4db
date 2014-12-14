@@ -24,13 +24,13 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
- * must implement the {@link FragmentA.OnFragmentInteractionListener} interface
- * to handle interaction events. Use the {@link FragmentA#newInstance} factory
+ * must implement the {@link FragmentMonster.OnFragmentInteractionListener} interface
+ * to handle interaction events. Use the {@link FragmentMonster#newInstance} factory
  * method to create an instance of this fragment.
  * 
  */
 
-public class FragmentA extends Fragment {
+public class FragmentMonster extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -64,8 +64,8 @@ public class FragmentA extends Fragment {
 	 * @return A new instance of fragment FragmentA.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static FragmentA newInstance(String param1, String param2) {
-		FragmentA fragment = new FragmentA();
+	public static FragmentMonster newInstance(String param1, String param2) {
+		FragmentMonster fragment = new FragmentMonster();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -73,7 +73,7 @@ public class FragmentA extends Fragment {
 		return fragment;
 	}
 
-	public FragmentA() {
+	public FragmentMonster() {
 		// Required empty public constructor
 	}
 
@@ -133,7 +133,7 @@ public class FragmentA extends Fragment {
 				}
 			}
 
-			FragA_Adapter adapter = new FragA_Adapter(context, R.layout.fragment_a_layout,
+			FragMonster_Adapter adapter = new FragMonster_Adapter(context, R.layout.fragment_a_layout,
 					rankArry);
 
 			ListView dataList = (ListView) myInflatedView.findViewById(android.R.id.list);

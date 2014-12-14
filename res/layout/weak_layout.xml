@@ -7,9 +7,10 @@
 
     <TextView
         android:id="@+id/weakView1"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
 
     <TextView
@@ -17,54 +18,63 @@
           android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView3"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView4"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView5"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView6"
         android:layout_weight="1.2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView7"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView8"
        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView9"
          android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
     <TextView
         android:id="@+id/weakView10"
          android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="" />
 
 </LinearLayout>

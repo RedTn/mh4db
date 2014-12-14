@@ -20,12 +20,12 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
- * must implement the {@link FragmentB.OnFragmentInteractionListener} interface
- * to handle interaction events. Use the {@link FragmentB#newInstance} factory
+ * must implement the {@link FragmentCombo.OnFragmentInteractionListener} interface
+ * to handle interaction events. Use the {@link FragmentCombo#newInstance} factory
  * method to create an instance of this fragment.
  * 
  */
-public class FragmentB extends Fragment {
+public class FragmentCombo extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -52,8 +52,8 @@ public class FragmentB extends Fragment {
 	 * @return A new instance of fragment FragmentB.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static FragmentB newInstance(String param1, String param2) {
-		FragmentB fragment = new FragmentB();
+	public static FragmentCombo newInstance(String param1, String param2) {
+		FragmentCombo fragment = new FragmentCombo();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -61,7 +61,7 @@ public class FragmentB extends Fragment {
 		return fragment;
 	}
 
-	public FragmentB() {
+	public FragmentCombo() {
 		// Required empty public constructor
 	}
 

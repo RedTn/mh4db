@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-public class ItemDetailActivity extends FragmentActivity implements FragmentA.OnFragmentInteractionListener,FragmentB.OnFragmentInteractionListener,FragmentC.OnFragmentInteractionListener,TabListener {
+public class ItemDetailActivity extends FragmentActivity implements FragmentMonster.OnFragmentInteractionListener,FragmentCombo.OnFragmentInteractionListener,FragmentMap.OnFragmentInteractionListener,TabListener {
 	int passedVal;
 	DBAdapter myDb;
 	ActionBar actionBar;
@@ -99,15 +99,15 @@ public class ItemDetailActivity extends FragmentActivity implements FragmentA.On
 		public Fragment getItem(int arg0) {
 			Fragment fragment = null;
 			if(arg0 == 0) {
-				fragment = new FragmentA();
+				fragment = new FragmentMonster();
 				fragment.setArguments(bundle);
 			}
 			if(arg0 == 1) {
-				fragment = new FragmentB();
+				fragment = new FragmentCombo();
 				fragment.setArguments(bundle);
 			}
 			if(arg0 == 2) {
-				fragment = new FragmentC();
+				fragment = new FragmentMap();
 				fragment.setArguments(bundle);
 			}
 			return fragment;

@@ -3,17 +3,17 @@ package com.example.mh4db;
 public class Comboset {
 
 	// private variables
-	int _iid;
-	int _iid2;
-	int _result;
-	String _prob;
-	String _qty;
-	String _namea;
-	String _nameb;
-	byte[] _imagea;
-	byte[] _imageb;
-	boolean _header;
-	boolean _make;
+	private int _iid;
+	private int _iid2;
+	private int _result;
+	private String _prob;
+	private String _qty;
+	private String _namea;
+	private String _nameb;
+	private byte[] _imagea;
+	private byte[] _imageb;
+	private boolean _header;
+	private boolean _make;
 	
 	// Empty constructor
 	public Comboset() {

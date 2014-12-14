@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.example.mh4db.FragmentB" >
+    tools:context="com.example.mh4db.FragmentCombo" >
 
     <LinearLayout
         android:id="@+id/LinearLayout1"

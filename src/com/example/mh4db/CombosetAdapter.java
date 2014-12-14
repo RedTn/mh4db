@@ -67,7 +67,7 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 		Bitmap theImage2 = BitmapFactory.decodeStream(imageStream2);
 		holder.bitem_b.setImageBitmap(theImage2);
 
-		if(cs ._header) {
+		if(cs.is_header()) {
 			holder.bname_a.setTextColor(Color.parseColor("#000000"));
 			holder.bname_b.setTextColor(Color.parseColor("#000000"));
 			holder.bprob.setTextColor(Color.parseColor("#000000"));
@@ -81,8 +81,8 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context, ItemDetailActivity.class);
-				if(cs ._make)i.putExtra(ID_EXTRA, cs ._iid2);
-				else i.putExtra(ID_EXTRA, cs ._iid);
+				if(cs.is_make())i.putExtra(ID_EXTRA, cs.get_iid2());
+				else i.putExtra(ID_EXTRA, cs.get_iid());
 				// TODO: Find better way, be careful here
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				//
@@ -95,8 +95,8 @@ public class CombosetAdapter extends ArrayAdapter<Comboset>{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context, ItemDetailActivity.class);
-				if (cs ._make) i.putExtra(ID_EXTRA, cs ._result);
-				else i.putExtra(ID_EXTRA, cs ._iid2);
+				if (cs.is_make()) i.putExtra(ID_EXTRA, cs.get_result());
+				else i.putExtra(ID_EXTRA, cs.get_iid2());
 				// TODO: Find better way, be careful here
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				//
