@@ -176,23 +176,24 @@ public class MonsterActivity extends ActionBarActivity implements OnItemClickLis
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		switch(position) {
-		case 0: {
+		MenuItems m = MenuItems.get(position);
+		switch(m) {
+		case HOME: {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			break;
 		}
-		case 1: {
+		case MONSTERS: {
 			Intent intent = new Intent(this, MonsterActivity.class);
 			startActivity(intent);
 			break;
 		}
-		case 2: {
+		case ITEMS: {
 			Intent intent = new Intent(this, ItemActivity.class);
 			startActivity(intent);
 			break;
 		}
-		case 3: {
+		case MAPS: {
 			Intent intent = new Intent(this, MapActivity.class);
 			startActivity(intent);
 			break;

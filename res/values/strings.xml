@@ -34,7 +34,8 @@
         <item>Home</item>
         <item>Monsters</item>
         <item>Items</item>
-        <item>Map</item>
+        <item>Maps</item>
+        <item>Weapons</item>
     </string-array>
     <string-array name="maps">
         <item>Ruins Field</item>
