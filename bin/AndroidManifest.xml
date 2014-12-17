@@ -70,7 +70,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MainActivity" />
-        </activity>
+        </activity>
         -->
         <activity
             android:name=".MapDetailActivity"
@@ -79,6 +79,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mh4db.MapActivity" />
+        </activity>
+        <activity
+            android:name=".WeaponActivity"
+            android:label="@string/title_activity_weapon" >
+        </activity>
+        <activity
+            android:name=".WeaponTypeActivity"
+            android:label="@string/title_activity_weapon_type" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mh4db.WeaponActivity" />
         </activity>
     </application>
 

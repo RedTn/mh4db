@@ -65,7 +65,9 @@
     <string name="action_about_map">Details</string>
     <string name="title_activity_map_detail">MapDetailActivity</string>
     <string name="type_header">Type</string>
-     <string name="low_map_header">Low Rank</string>
-     <string name="high_map_header">High Rank</string>
+    <string name="low_map_header">Low Rank</string>
+    <string name="high_map_header">High Rank</string>
+    <string name="title_activity_weapon">WeaponActivity</string>
+    <string name="title_activity_weapon_type">WeaponTypeActivity</string>
 
 </resources>

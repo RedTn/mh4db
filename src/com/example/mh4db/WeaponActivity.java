@@ -1,4 +1,7 @@
-package com.example.mh4db;
+package com.example.mh4db;	
+
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -6,16 +9,20 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class MainActivity extends ActionBarActivity implements OnItemClickListener {
-
-	private DBHelper dbHelper = null;
+public class WeaponActivity extends ActionBarActivity implements OnItemClickListener {
+	DBAdapter myDb;
+	ArrayList<WeaponTypeset> weaponArry = new ArrayList<WeaponTypeset>();
+	WeaponsetAdapter adapter;
+	public final static String ID_EXTRA="com.example.mh4db._ID";
 	private DrawerLayout drawerLayout;
 	private ListView listView;
 	private ActionBarDrawerToggle drawerListener;
@@ -23,21 +30,71 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		try {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		setTitle("MH4 Database");
+		setContentView(R.layout.activity_weapon);
+		setTitle("Weapons");
+		
+		fillDrawer();
+		
+		openDB();
+		
+		List<WeaponTypeset> weaponSets = myDb.getAllWeaponTypes();
+		for(WeaponTypeset ws : weaponSets) {
+			weaponArry.add(ws);
+		}
+		
+		adapter = new WeaponsetAdapter(this, R.layout.weapon_type_layout,
+				weaponArry);
 
-		//create our database Helper
-		dbHelper = new DBHelper(this);
-		//we call the create right after initializing the helper, just in case
-		//they have never run the app before
-		dbHelper.createDatabase();
+		GridView dataList = (GridView) findViewById(R.id.gridView1);
+		dataList.setAdapter(adapter);
+		
+		dataList.setOnItemClickListener(onGridClick);
 
+		}
+		catch (Exception e) {
+			Log.e("ERROR", "ERROR IN CODE: " + e.toString());
+
+			e.printStackTrace();
+		}
+	}
+	
+	private AdapterView.OnItemClickListener onGridClick=new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, 
+				View view, int position,
+				long id)
+		{	
+			Log.i("listen", "position: " + Integer.toString(position) + " id: " + Long.toString(id));
+			WeaponTypeset weaponSet = weaponArry.get((int)id);
+			Intent i = new Intent(WeaponActivity.this, WeaponTypeActivity.class);
+			i.putExtra(ID_EXTRA, weaponSet.get_classid());
+			startActivity(i);
+
+		}
+	};
+	
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+
+	private void closeDB() {
+		myDb.close();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		closeDB();
+	}
+
+	private void fillDrawer() {
 		drawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-		//mainmenu = getResources().getStringArray(R.array.mainmenu);
+
 		listView = (ListView) findViewById(R.id.drawerList);
 		myAdapter = new DrawerAdapter(this);
-		//listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mainmenu));
 		listView.setAdapter(myAdapter);
 		listView.setOnItemClickListener(this);
 
@@ -60,9 +117,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-
-
-
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -131,5 +186,4 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		drawerLayout.closeDrawers();
 		finish();
 	}
-
 }

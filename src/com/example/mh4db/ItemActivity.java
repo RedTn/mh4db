@@ -157,6 +157,11 @@ public class ItemActivity extends ActionBarActivity implements OnItemClickListen
 			startActivity(intent);
 			break;
 		}
+		case WEAPONS: {
+			Intent intent = new Intent(this, WeaponActivity.class);
+			startActivity(intent);
+			break;
+		}
 		default: {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);

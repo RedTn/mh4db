@@ -35,6 +35,7 @@ public class DBAdapter {
 	private static final String DATABASE_TABLE_MAP = "map";
 	private static final String DATABASE_TABLE_LOWMAP = "lowrank_map";
 	private static final String DATABASE_TABLE_HIGHMAP = "highrank_map";
+	private static final String DATABASE_TABLE_WEAPON_MENU = "weapon_menu";
 	private static final int DATABASE_VERSION = 3;
 
 	//Shared with DescriptAtivity
@@ -449,4 +450,31 @@ public class DBAdapter {
 		return mapList;
 	}
 
+	public List<WeaponTypeset> getAllWeaponTypes() {
+		String selectQuery = null;
+		selectQuery = "SELECT * FROM " + DATABASE_TABLE_WEAPON_MENU;
+		List<WeaponTypeset> weaponList = new ArrayList<WeaponTypeset>();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				WeaponTypeset weaponSet = new WeaponTypeset(cursor.getInt(0), 
+						cursor.getString(1), cursor.getBlob(2));
+				weaponList.add(weaponSet);
+			} while (cursor.moveToNext());
+		}
+		
+		return weaponList;
+	}
+	
+	public String getWeaponTypeNameById(int id) {
+		String selectQuery = null;
+		selectQuery = "SELECT * FROM " + DATABASE_TABLE_WEAPON_MENU + " WHERE class_id = ?";
+		String[] args = {String.valueOf(id)};
+		Cursor cursor = db.rawQuery(selectQuery, args);
+		String name = null;
+		if (cursor.moveToFirst()) {
+			name = cursor.getString(1);
+		}
+		return name;
+	}
 }
